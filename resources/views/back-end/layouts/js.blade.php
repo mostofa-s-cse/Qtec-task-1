@@ -29,6 +29,8 @@
 <script src="{{asset('backend/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('backend/dist/js/adminlte.js')}}"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{{asset('backend/dist/js/demo.js')}}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{asset('backend/dist/js/pages/dashboard.js')}}"></script>
 <!-- SweetAlert2 -->
@@ -69,12 +71,40 @@
 {{--</script>--}}
 
 
+<script>
+
+@if(Session::has('success'))
+
+    toastr.success("{{ Session::get('success') }}");
+
+@endif
 
 
 
+@if(Session::has('info'))
+
+    toastr.info("{{ Session::get('info') }}");
+
+@endif
 
 
 
+@if(Session::has('warning'))
+
+    toastr.warning("{{ Session::get('warning') }}");
+
+@endif
+
+
+
+@if(Session::has('error'))
+
+    toastr.error("{{ Session::get('error') }}");
+
+@endif
+
+
+</script>
 
 
 {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>--}}
@@ -94,35 +124,7 @@
         autoclose: true
     })
 
-    @if(Session::has('success'))
 
-    toastr.success("{{ Session::get('success') }}");
-
-    @endif
-
-
-
-    @if(Session::has('info'))
-
-    toastr.info("{{ Session::get('info') }}");
-
-    @endif
-
-
-
-    @if(Session::has('warning'))
-
-    toastr.warning("{{ Session::get('warning') }}");
-
-    @endif
-
-
-
-    @if(Session::has('error'))
-
-    toastr.error("{{ Session::get('error') }}");
-
-    @endif
 
 
 </script>

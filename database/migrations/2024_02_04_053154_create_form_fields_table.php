@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('form_fields', function (Blueprint $table) {
-            $table->id('field_id');
+            $table->id();
             $table->unsignedBigInteger('form_id');
-            $table->foreign('form_id')->references('form_id')->on('forms'); // Assuming 'forms' is your Forms table name
+            $table->foreign('form_id')->references('id')->on('forms'); // Assuming 'forms' is your Forms table name
             $table->string('type');
             $table->string('label');
             $table->text('options')->nullable(); // Nullable for types other than Multiple Choice or Checkbox

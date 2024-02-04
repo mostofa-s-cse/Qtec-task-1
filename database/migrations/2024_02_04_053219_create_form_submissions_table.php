@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('form_submissions', function (Blueprint $table) {
-            $table->id('submission_id');
+            $table->id();
             $table->unsignedBigInteger('form_id');
-            $table->foreign('form_id')->references('form_id')->on('forms');
+            $table->foreign('form_id')->references('id')->on('forms');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->json('submission_data'); // Assuming it's a JSON column

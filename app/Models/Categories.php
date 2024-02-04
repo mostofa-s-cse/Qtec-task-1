@@ -17,4 +17,7 @@ class Categories extends Model
         'category_id', 'organization_id',
         'name','description'
     ];
+    public function organizations(){
+        return $this->belongsTo(Organizations::class);
+    }
 }

@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('forms', function (Blueprint $table) {
-            $table->id('form_id'); // Primary Key
+            $table->id(); // Primary Key
             $table->unsignedBigInteger('category_id'); // Foreign Key
             $table->string('name');
             $table->text('description');
             $table->timestamps();
-            $table->foreign('category_id')->references('category_id')->on('categories'); // Foreign Key Relationship
+            $table->foreign('category_id')->references('id')->on('categories'); // Foreign Key Relationship
         });
     }
 
