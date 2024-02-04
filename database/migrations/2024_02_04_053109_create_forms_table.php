@@ -11,15 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
+        Schema::create('forms', function (Blueprint $table) {
+            $table->id('form_id'); // Primary Key
+            $table->unsignedBigInteger('category_id'); // Foreign Key
             $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('role')->default(0);
-            $table->string('password');
-            $table->rememberToken();
+            $table->text('description');
             $table->timestamps();
+            $table->foreign('category_id')->references('category_id')->on('categories'); // Foreign Key Relationship
         });
     }
 
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('forms');
     }
 };
