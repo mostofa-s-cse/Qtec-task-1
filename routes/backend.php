@@ -2,6 +2,8 @@
 use App\Http\Controllers\Admin\CategoriesController;
 use App\Http\Controllers\Admin\OrganizationsController;
 use App\Http\Controllers\Admin\DashBoardController;
+use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -16,9 +18,10 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('dashboard', [DashBoardController::class, 'index'])->name('dashboard');
-
 Route::resource('organizations',OrganizationsController::class);
 Route::resource('categories',CategoriesController::class);
+Route::resource('permissions',PermissionController::class);
+Route::resource('roles',RoleController::class);
 
 
 
