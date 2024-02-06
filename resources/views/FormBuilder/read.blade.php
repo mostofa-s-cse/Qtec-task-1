@@ -23,6 +23,7 @@
                     <div class="card-body">
                         <form method="POST" action="{{ URL('save-form-transaction') }}">
                             @csrf
+                            <input type="hidden" value="{{Auth::user()->id}}" id="author" name="author">
                             <input type="number" id="form_id" name="form_id" hidden/>
                             <div id="fb-reader"></div>
                             <input type="submit" value="Save" class="btn btn-success" />

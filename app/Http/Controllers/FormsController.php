@@ -17,12 +17,14 @@ class FormsController extends Controller
 
     public function create(Request $request)
     {
+        // dd($request);
         $request->request->remove('_token');
         $item = new Forms();
+        $item->author = $request->author;
         $item->form_id = $request->form_id;
         $request->request->remove('form_id');
         $item->form = $request->all();
         $item->save();
-        return redirect('form-builder')->with('success', 'Form deleted successfully');
+        return redirect('form-builder')->with('success', 'Form submit successfully');
     }
 }
