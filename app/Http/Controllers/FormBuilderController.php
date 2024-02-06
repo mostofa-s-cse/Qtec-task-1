@@ -4,20 +4,27 @@ namespace App\Http\Controllers;
 
 use App\Models\FormBuilder;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 class FormBuilderController extends Controller
 {
     //
     public function index()
     {
-        $forms = FormBuilder::all();
+        $user = Auth::user();
+        $forms = DB::table('form_builders')
+                    ->where('author', $user->id)
+                    ->get();
+                    
         return view('FormBuilder.index', compact('forms'));
     }
 
     public function create(Request $request)
     {
+        // dd($request);
         $item = new FormBuilder();
         $item->name = $request->name;
+        $item->author = $request->author;
         $item->content = $request->form;
         $item->save();
 

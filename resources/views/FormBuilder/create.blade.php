@@ -1,3 +1,7 @@
+@php
+    $categories = \Illuminate\Support\Facades\DB::table('categories')->where('author', Auth::user()->id)->get();
+@endphp
+
 @extends('back-end.layouts.master')
 @section('title','Create Form')
 @section('content-header')
@@ -21,8 +25,16 @@
                 <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <label for="name">{{__('Name')}}</label>
-                        <input type="text" id="name" name="name" class="form-control" />
+                        <div class="form-group">
+                            <input type="hidden" value="{{Auth::user()->id}}" id="author" name="author">
+                                    <label>Categories <span class="text-danger">*</span></label>
+                                    <select class="select2 form-select form-control" id="name" name="name">
+                                        <option value="">Select Categories</option>
+                                        @foreach ($categories as $item)
+                                            <option value="{{$item->name}}">{{$item->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                         <div id="fb-editor"></div>
                     </div>
                 </div>
@@ -53,6 +65,7 @@
                 url: '{{ URL('save-form-builder') }}',
                 data: {
                     'form': form,
+                    'author': $("#author").val(),
                     'name': $("#name").val(),
                     "_token": "{{ csrf_token() }}",
                 },
