@@ -5,11 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Forms extends Model
+class DropZone extends Model
 {
     use HasFactory;
 
-    protected $casts = [
-        'form' => 'array'
-    ];
+    protected $fillable = ['filename'];
 }

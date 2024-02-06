@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Forms extends Model
 {
     use HasFactory;
-
-    protected $casts = [
-        'form' => 'array'
+    protected $fillable = [
+        'form_id', 'category_id',
+        'name','description',
     ];
 }

@@ -12,12 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('forms', function (Blueprint $table) {
-            $table->id(); // Primary Key
-            $table->unsignedBigInteger('category_id'); // Foreign Key
-            $table->string('name');
-            $table->text('description');
+            $table->id();
+            $table->foreignId('form_id')->nullable(false)->constrained('form_builders')->onDelete('cascade');
+            $table->JSON('form')->nullable(false);
             $table->timestamps();
-            $table->foreign('category_id')->references('id')->on('categories'); // Foreign Key Relationship
         });
     }
 

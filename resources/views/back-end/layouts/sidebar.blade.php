@@ -45,6 +45,18 @@
                         </p>
                     </a>
                 </li>
+
+
+                <li class="nav-item">
+                    <a href="{{ URL('form-builder') }}" class="nav-link" id="side-categories">
+                        <i class="nav-icon fas fa-edit"></i>
+                        <p>
+                            Form Builder
+                            {{-- <i class="fas fa-angle-left right"></i> --}}
+                        </p>
+                    </a>
+                </li>
+
                     </ul>
                 </li>
 
