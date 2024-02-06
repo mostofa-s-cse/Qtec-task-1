@@ -130,7 +130,7 @@
         <li class="nav-item dropdown">
             <a class="nav-link d-inline-flex" data-toggle="dropdown" href="#">
                 <img src="{{asset('backend/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
-                <p class="ml-2">{{ $user->name}}</p>
+                <p class="ml-2">{{ Auth::user()->name }}</p>
                 <i class="right fas fa-angle-down mt-1 ml-1"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
@@ -139,7 +139,7 @@
                         <img src="{{asset('backend/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">{{$user->name}}</a>
+                        <a href="#" class="d-block">{{ Auth::user()->name }}</a>
                     </div>
                 </div>
                 <div class="dropdown-divider"></div>

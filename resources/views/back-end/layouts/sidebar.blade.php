@@ -15,7 +15,7 @@
                 <img src="{{asset('backend/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">{{$user->name}}</a>
+                <a href="#" class="d-block">{{ Auth::user()->name }}</a>
             </div>
         </div>
 
@@ -25,7 +25,7 @@
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
 
-                @can('organizations')
+                <!-- @can('organizations') -->
                 <li class="nav-item">
                     <a href="{{route("organizations.index")}}" class="nav-link" id="side-organizations">
                         <i class="nav-icon fas fa-edit"></i>
@@ -35,7 +35,7 @@
                         </p>
                     </a>
                 </li>
-                @endcan
+                <!-- @endcan -->
                 <li class="nav-item">
                     <a href="{{route("categories.index")}}" class="nav-link" id="side-categories">
                         <i class="nav-icon fas fa-edit"></i>

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Categories;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 
 
@@ -18,8 +19,10 @@ class CategoriesController extends Controller
     public function index(Request $request)
     {
         try {
+            $user = Auth::user();
             if ($request->ajax()) {
                 $data = DB::table('categories')
+                    ->where('author', $user->id)
                     ->join('organizations', 'categories.organization_id', '=', 'organizations.id')
                     ->select('categories.*', 'organizations.name as organization_name')
                     ->orderBy('categories.id', 'DESC')
@@ -86,13 +89,27 @@ class CategoriesController extends Controller
         ]);
 
         try {
-            DB::table('categories')->insert([
-                'organization_id' => $request->organization_id,
-                'name' => $request->name,
-                'description' => $request->description,
-                'created_at' => Carbon::now(),
-            ]);
+            $user = Auth::user();
+                // Check if the category name already exists for the authenticated user
+                $existingCategory = DB::table('categories')
+                    ->where('author', $user->id)
+                    ->where('name', $request->name)
+                    ->first();
 
+                if ($existingCategory) {
+                    // Category name already exists for this user
+                    return redirect()->back()->with('error', 'Category name already exists');
+                }
+
+                // If the category name doesn't exist, insert the new category
+                DB::table('categories')->insert([
+                    'organization_id' => $request->organization_id,
+                    'name' => $request->name,
+                    'description' => $request->description,
+                    'author' => $user->id,
+                    'created_at' => now(),
+                ]);
+                // Redirect back with success message if the insertion is successful
             return redirect()->route('categories.index')
                 ->with('success', 'Added Successfully');
         } catch (\Exception $exception) {
@@ -135,10 +152,23 @@ class CategoriesController extends Controller
                     ->with('error', 'categories not found');
             }
 
+            $user = Auth::user();
+                // Check if the category name already exists for the authenticated user
+                $existingCategory = DB::table('categories')
+                    ->where('author', $user->id)
+                    ->where('name', $request->name)
+                    ->first();
+
+                if ($existingCategory) {
+                    // Category name already exists for this user
+                    return redirect()->back()->with('error', 'Category name already exists');
+                }
+
             // Update the slider record
             DB::table('categories')->where('id', $id)->update([
                 'organization_id' => $request->organization_id,
                 'name' => $request->name,
+                'author' => $user->id,
                 'description' => $request->description,
                 'updated_at' => Carbon::now(),
             ]);

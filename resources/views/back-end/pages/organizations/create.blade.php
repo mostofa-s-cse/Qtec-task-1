@@ -58,7 +58,7 @@
 @section('js')
     <script>
         $(document).ready(function () {
-            $("#side-categories").addClass('active');
+            $("#side-organizations").addClass('active');
         });
 
     </script>
