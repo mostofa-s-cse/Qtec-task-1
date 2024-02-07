@@ -33,7 +33,7 @@ class UserController extends Controller
                         return $data->roles_name;
                     })
                     ->addColumn('types', function ($data) {
-                        return $data->roles_name;
+                        return $data->types;
                     })
                     ->addColumn('action', function ($data) {
                         return '<div class="" role="group">
@@ -74,14 +74,15 @@ class UserController extends Controller
             'email' => 'required',
             'name' => 'required',
             'password' => 'required|confirmed|min:6',
-            'role_id'=>'required'
+            'role_id'=>'required',
+            'types'=>'required',
 
         ], []);
         try {
             DB::table('users')->insert([
                 'name' => $request->name,
                 'email' => $request->email,
-                'types'=>$request->role_id,
+                'types'=>$request->types,
                 'password' => Hash::make($request->password),
                 'role_id'=>$request->role_id,
                 'created_at' => Carbon::now(),
@@ -119,6 +120,8 @@ class UserController extends Controller
             'email' => 'required',
             'name' => 'required',
             'password' => 'required|confirmed|min:6',
+            'role_id'=>'required',
+            'types'=>'required',
         ]);
     
         try {
@@ -133,7 +136,7 @@ class UserController extends Controller
             DB::table('users')->where('id', $id)->update([
                 'name' => $request->name,
                 'email' => $request->email,
-                'types'=>$request->role_id,
+                'types'=>$request->types,
                 'password' => Hash::make($request->password),
                 'role_id'=>$request->role_id,
                 'updated_at' => Carbon::now(),

@@ -55,3 +55,4 @@ Route::resource('users',UserController::class);
 
 // End Form Builder===============================================================
 
+Route::view('read-form/{name}', 'front-end.read');

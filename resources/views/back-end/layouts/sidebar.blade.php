@@ -1,5 +1,6 @@
 @php
     $user = \Illuminate\Support\Facades\DB::table('users')->first();
+    $authUser = Auth::user();
 @endphp
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
@@ -24,18 +25,21 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
+                    
+                     @if ($authUser->role_id === '3')
+                            <li class="nav-item">
+                                <a href="{{ route('users.index') }}" class="nav-link" id="side-organizations">
+                                    <i class="nav-icon fas fa-edit"></i>
+                                    <p>
+                                        Organizations
+                                        {{-- <i class="fas fa-angle-left right"></i> --}}
+                                    </p>
+                                </a>
+                            </li>
+                        @endif
 
-      
-                <li class="nav-item">
-                    <a href="{{route("users.index")}}" class="nav-link" id="side-organizations">
-                        <i class="nav-icon fas fa-edit"></i>
-                        <p>
-                            Organizations
-                            {{-- <i class="fas fa-angle-left right"></i> --}}
-                        </p>
-                    </a>
-                </li>
-          
+               
+          @if ($authUser->role_id === '1' && $authUser->role_id === '2'&& $authUser->role_id === '3' && $authUser->types ==="Organizations" )
                 <li class="nav-item">
                     <a href="{{route("categories.index")}}" class="nav-link" id="side-categories">
                         <i class="nav-icon fas fa-edit"></i>
@@ -56,7 +60,7 @@
                         </p>
                     </a>
                 </li>
-
+ @endif
                     </ul>
                 </li>
 

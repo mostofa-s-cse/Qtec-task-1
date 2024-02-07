@@ -34,6 +34,6 @@ Route::get('/individual-categories/{id}', [HomeController::class, 'individualCat
 // Route::view('read-individual-categories/{id}', 'front-end.category');
 // Step 6
 
-Route::view('read-form/{name}', 'front-end.read');
+// Route::view('read-form/{name}', 'front-end.read');
 Route::get('get-form', [HomeController::class, 'read']);
-Route::post('save-form-transaction-user', [HomeController::class, 'create']);
+Route::post('save-form-user', [HomeController::class, 'create']);

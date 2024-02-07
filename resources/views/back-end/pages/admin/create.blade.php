@@ -46,15 +46,24 @@
                         <input type="text" name="password_confirmation" class="form-control">
                     </div>
 
-                    <div class="form-group">
-                        <label for="">Select role</label><span style="font-weight: bold; color: red"> *</span>
-                        <select name="role_id" id="" class="form-control select2">
-                            <option value="">select</option>
-                            @foreach($roles as $role)
-                                <option value="{{$role->id}}">{{$role->name}}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                            <div class="form-group">
+                                <label for="">Select role</label><span style="font-weight: bold; color: red"> *</span>
+                                <select name="role_id" id="" class="form-control select2">
+                                    <option value="">select</option>
+                                    @foreach($roles as $role)
+                                        <option value="{{$role->id}}">{{$role->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="">Select Type</label><span style="font-weight: bold; color: red"> *</span>
+                                <select name="types" id="" class="form-control select2">
+                                    <option value="">select type</option>
+                                        <option value="Organizations">Organizations</option>
+                                        <option value="Non Organizations">Non Organizations</option>
+                                </select>
+                            </div>
                             </div>
                             <!-- /.card-body -->
 

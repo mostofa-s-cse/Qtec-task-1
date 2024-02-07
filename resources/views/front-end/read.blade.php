@@ -11,7 +11,7 @@
 <body>
 <div class="container">
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Navbar</a>
+  <a class="navbar-brand" href="/">Navbar</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -19,7 +19,7 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">@if (Route::has('register')) @auth
                     <div></div>
@@ -52,7 +52,7 @@
                 <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                    <form method="POST" action="{{ URL('save-form-transaction') }}">
+                    <form method="POST" action="{{ URL('save-form-user') }}">
                             @csrf
                             <input type="hidden" value="{{Auth::user()->id}}" id="author" name="author">
                             <input type="number" id="form_id" name="form_id" hidden/>

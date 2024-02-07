@@ -16,12 +16,12 @@ class DashBoardController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $roles = DB::table('roles')
-            ->where('id', $user->id)
-            ->first();
-        if ($roles->id === 0) {
-            return view('front-end.index');
-        } elseif ($roles->id === 1 || $roles->id === 2) {
+        // $roles = DB::table('roles')
+        //     ->where('id', $user->id)
+        //     ->first();
+        if ($user->role_id === '1') {
+           return redirect()->route('frontend.index');
+        } elseif ($user->role_id === '2' || $user->role_id === '3') {
             return view('back-end.dashboard');
         } else {
             // Handle other roles or unauthorized access
