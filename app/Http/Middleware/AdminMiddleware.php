@@ -17,16 +17,23 @@ class AdminMiddleware
      * @param \Closure $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+   public function handle($request, Closure $next)
     {
         if (Auth::check()) {
             $role = auth()->user()->role_id;
-            if ($role != "2"||"3") {
-                return redirect()->route('frontend.index');
+            if ($role != "2" && $role != "3") {
+                // return response()->json([
+                //     'success'=>false,
+                //     'message'=>'Unauthorized',
+                // ], 401);
+                return redirect('/')->with('error', 'Unauthorized');
             }
             return $next($request);
         } else {
-            return redirect()->route('frontend.index');
+            return response()->json([
+                'success'=>false,
+                'message'=>'Unauthorized',
+            ], 401);
         }
     }
 }

@@ -38,8 +38,6 @@
                             </li>
                         @endif
 
-               
-          @if ($authUser->role_id === '1' && $authUser->role_id === '2'&& $authUser->role_id === '3' && $authUser->types ==="Organizations" )
                 <li class="nav-item">
                     <a href="{{route("categories.index")}}" class="nav-link" id="side-categories">
                         <i class="nav-icon fas fa-edit"></i>
@@ -60,7 +58,6 @@
                         </p>
                     </a>
                 </li>
- @endif
                     </ul>
                 </li>
 

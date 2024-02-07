@@ -34,12 +34,14 @@
                             <td>
                                 <a href="{{ URL('edit-form-builder', $form->id) }}" class="btn btn-primary">{{__('Edit')}}</a>
                                 <a href="{{ URL('read-form-builder', $form->id) }}" class="btn btn-primary">{{__('Show')}}</a>
+                                <a href="get-form-submissiondata/{{$form->id }}" class="btn btn-primary">{{__('Submited Data View')}}</a>
                                 <form method="POST" action="{{ URL('form-delete', $form->id) }}" style="display: inline;">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger"
                                         onclick="return confirm('Are you sure you want to delete this product?')">{{__('Delete')}}</button>
                                 </form>
+                                
                             </td>
                         </tr>
                     @endforeach
