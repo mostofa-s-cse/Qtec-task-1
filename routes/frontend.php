@@ -1,10 +1,9 @@
 <?php
 
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\SliderController;
+use App\Http\Controllers\FormBuilderController;
+use App\Http\Controllers\FormsController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\ContactController;
-use App\Http\Controllers\Admin\ProjectController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,9 +30,10 @@ Auth::routes();
 // });
 
 Route::get('/', [HomeController::class, 'frontendHome'])->name('frontend.index');
-Route::get('about-us', [HomeController::class, 'about_us'])->name('abouts');
-Route::get('services', [HomeController::class, 'services'])->name('services');
-Route::get('projects', [HomeController::class, 'projects'])->name('projects');
-Route::get('contact-us', [HomeController::class, 'contact_us'])->name('contact');
-Route::post('contact-store', [ContactController::class, 'store'])->name('contact_store');
-Route::get('single_project/{id}', [ProjectController::class, 'single_project'])->name('single_project');
+Route::get('/individual-categories/{id}', [HomeController::class, 'individualCategories'])->name('individualCategories');
+// Route::view('read-individual-categories/{id}', 'front-end.category');
+// Step 6
+
+Route::view('read-form/{name}', 'front-end.read');
+Route::get('get-form', [HomeController::class, 'read']);
+Route::post('save-form-transaction-user', [HomeController::class, 'create']);

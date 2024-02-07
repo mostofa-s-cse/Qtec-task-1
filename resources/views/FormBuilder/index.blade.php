@@ -30,7 +30,7 @@
                 <tbody>
                     @foreach ($forms as $form)
                         <tr>
-                            <td>{{ $form->name }}</td>
+                            <td>{{ $form->categories_name }}</td>
                             <td>
                                 <a href="{{ URL('edit-form-builder', $form->id) }}" class="btn btn-primary">{{__('Edit')}}</a>
                                 <a href="{{ URL('read-form-builder', $form->id) }}" class="btn btn-primary">{{__('Show')}}</a>

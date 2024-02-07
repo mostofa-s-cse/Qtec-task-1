@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Task-1</title>
+  <title>Categories</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -46,13 +46,13 @@
 
   
 <div class="container">
-  <h2 class="mt-5">All Organizations</h2>
+  <h2 class="mt-5">All Categories</h2>
     <div class="row mt-5">
-  @foreach($organizations as $key => $item)
+  @foreach($categories as $item)
           <div class="col-sm-4 mb-2">
                 <div class="card">
                   <div class="card-body">
-                    <a href="individual-categories/{{ $item->id }}" ><h5 class="card-title">{{ $item->name }}</h5> </a>
+                    <a href="/read-form/{{$item->id}}" ><h5 class="card-title">{{ $item->name }}</h5> </a>
                   </div>
                 </div>
                 </div>

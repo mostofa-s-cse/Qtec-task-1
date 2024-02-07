@@ -11,7 +11,7 @@
 <body>
 <div class="container">
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="/">Navbar</a>
+  <a class="navbar-brand" href="#">Navbar</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -19,7 +19,7 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">@if (Route::has('register')) @auth
                     <div></div>
@@ -46,21 +46,47 @@
 
   
 <div class="container">
-  <h2 class="mt-5">All Organizations</h2>
-    <div class="row mt-5">
-  @foreach($organizations as $key => $item)
-          <div class="col-sm-4 mb-2">
+  <h2 class="mt-5">Form</h2>
+   
+  <div class="row">
+                <div class="col-md-12">
                 <div class="card">
-                  <div class="card-body">
-                    <a href="individual-categories/{{ $item->id }}" ><h5 class="card-title">{{ $item->name }}</h5> </a>
-                  </div>
+                    <div class="card-body">
+                    <form method="POST" action="{{ URL('save-form-transaction') }}">
+                            @csrf
+                            <input type="hidden" value="{{Auth::user()->id}}" id="author" name="author">
+                            <input type="number" id="form_id" name="form_id" hidden/>
+                            <div id="fb-reader"></div>
+                            <input type="submit" value="Save" class="btn btn-success" />
+                        </form>
+                    </div>
                 </div>
                 </div>
-            @endforeach
-</div>
-
-    <!-- <input type="submit" class="btn btn-primary" value="Submit" onclick="saveForm()"> -->
 
 </div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+    <script src="{{ URL::asset('assets/form-builder/form-render.min.js') }}"></script>
+    <script>
+        $(function() {
+            $.ajax({
+                type: 'get',
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                },
+                url: '{{ URL('get-form') }}',
+                data: {
+                    'name': {{ $name }}
+                },
+                success: function(data) {
+                    $("#form_id").val(data.id);
+                    $('#fb-reader').formRender({
+                        formData: data.content
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>

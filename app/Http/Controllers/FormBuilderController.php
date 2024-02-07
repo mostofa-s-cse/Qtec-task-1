@@ -13,9 +13,10 @@ class FormBuilderController extends Controller
     {
         $user = Auth::user();
         $forms = DB::table('form_builders')
-                    ->where('author', $user->id)
-                    ->get();
-                    
+            ->where('form_builders.author', $user->id) // Specify the table name for the author column
+            ->join('categories', 'categories.id', '=', 'form_builders.id')
+            ->select('form_builders.*', 'categories.name as categories_name')
+            ->get();                
         return view('FormBuilder.index', compact('forms'));
     }
 
