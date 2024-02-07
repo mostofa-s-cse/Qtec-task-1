@@ -29,13 +29,14 @@
                             @csrf
                             @method('POST')
                             <div class="card-body">
+                            <input type="hidden" value="{{Auth::user()->id}}" id="organization_id" name="organization_id">
                                 <div class="form-group">
                                     <label for="exampleInputFile">Category Name</label>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="exampleInputFile" name="name">
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <label>Organization <span class="text-danger">*</span></label>
                                     <select class="select2 form-select form-control" name="organization_id">
                                         <option value="">Select organization</option>
@@ -43,7 +44,7 @@
                                             <option value="{{$item->id}}">{{$item->name}}</option>
                                         @endforeach
                                     </select>
-                                </div>
+                                </div> --}}
                                 <div class="form-group">
                                     <label for="exampleInputFile">Description</label>
                                     <div class="input-group">

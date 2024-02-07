@@ -7,6 +7,8 @@ use App\Http\Controllers\DropZoneController;
 use App\Http\Controllers\FormBuilderController;
 use App\Http\Controllers\FormsController;
 use App\Http\Controllers\RoleController;
+// use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +48,10 @@ Route::post('update-form-builder', [FormBuilderController::class, 'update']);
 Route::view('read-form-builder/{id}', 'FormBuilder.read');
 Route::get('get-form-builder', [FormsController::class, 'read']);
 Route::post('save-form-transaction', [FormsController::class, 'create']);
+
+
+// Route::resource('roles',RoleController::class);
+Route::resource('users',UserController::class);
 
 // End Form Builder===============================================================
 

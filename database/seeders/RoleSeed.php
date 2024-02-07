@@ -16,17 +16,17 @@ class RoleSeed extends Seeder
         DB::table('roles')->insert([
             [
                 'id' => 1,
-                'name' => 'super admin',
+                'name' => 'User',
                 'guard_name' => 'web',
             ],
             [
                 'id' => 2,
-                'name' => 'admin',
+                'name' => 'Admin',
                 'guard_name' => 'web',
             ],
             [
                 'id' => 3,
-                'name' => 'user',
+                'name' => 'Super Admin',
                 'guard_name' => 'web',
             ],
 

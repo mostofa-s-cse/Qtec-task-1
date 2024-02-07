@@ -23,8 +23,8 @@ class CategoriesController extends Controller
             if ($request->ajax()) {
                 $data = DB::table('categories')
                     ->where('author', $user->id)
-                    ->join('organizations', 'categories.organization_id', '=', 'organizations.id')
-                    ->select('categories.*', 'organizations.name as organization_name')
+                    ->join('users', 'categories.organization_id', '=', 'users.id')
+                    ->select('categories.*', 'users.name as organization_name')
                     ->orderBy('categories.id', 'DESC')
                     ->get();
 
@@ -69,9 +69,9 @@ class CategoriesController extends Controller
     public function create()
     {
         try {
-            $organizations = DB::table('organizations')->get();
+            // $organizations = DB::table('organizations')->get();
 //            dd($organizations);
-            return view('back-end.pages.categories.create',compact('organizations'));
+            return view('back-end.pages.categories.create');
         } catch (\Exception $exception) {
             return back()->with($exception->getMessage());
         }

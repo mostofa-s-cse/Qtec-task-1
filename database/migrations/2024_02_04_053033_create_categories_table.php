@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('organization_id'); // Corrected column name
-            $table->foreign('organization_id')->references('id')->on('organizations'); // Corrected column name
+            $table->string('organization_id');
             $table->string('name');
             $table->string('author');
             $table->text('description');
