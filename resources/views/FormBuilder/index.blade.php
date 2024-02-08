@@ -34,7 +34,7 @@
                             <td>
                                 <a href="{{ URL('edit-form-builder', $form->id) }}" class="btn btn-primary">{{__('Edit')}}</a>
                                 <a href="{{ URL('read-form-builder', $form->id) }}" class="btn btn-primary">{{__('Show')}}</a>
-                                <a href="get-form-submissiondata/{{$form->id }}" class="btn btn-primary">{{__('Submited Data View')}}</a>
+                                <a href="{{ URL('get-form', $form->id) }}" class="btn btn-primary">{{ __('Submitted Data View') }}</a>
                                 <form method="POST" action="{{ URL('form-delete', $form->id) }}" style="display: inline;">
                                     @csrf
                                     @method('DELETE')

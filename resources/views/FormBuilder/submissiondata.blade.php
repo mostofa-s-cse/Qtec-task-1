@@ -24,7 +24,7 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table id="example1" class="table table-bordered table-striped data-table">
+                            <table class="table table-hover table-bordered">
                                 <thead>
                                 <tr class="" style="text-align:center; ">
                                     <th style="width: 7%">SL</th>
@@ -34,7 +34,20 @@
                                     <th style="width: 10%">Action</th>
                                 </tr>
                                 </thead>
+                                <tbody>
+                                @foreach ($data as $item)
+                                <tr>
+                                    <td>{{ $item->id }}</td>
+                                    <td>{{ $item->author }}</td>
+                                    <td>{{ $item->form_id }}</td>
+                                    <td>{{ $item->created_at }}</td>
 
+                                    <td>
+                                    <a href="{{ URL('read-submit-form-data', $item->id) }}" class="btn btn-primary">{{ __('Data View') }}</a>
+                                    </td>
+                                </tr>
+                                @endforeach
+                                </tbody>
                             </table>
                         </div>
                         <!-- /.card-body -->
@@ -56,35 +69,6 @@
         });
 
     </script>
-    <script>
-        var datatable = $('.data-table').DataTable({
-            order: [],
-            lengthMenu: [[10, 20, 30, 50, 100, -1], [10, 20, 30, 50, 100, "All"]],
-            processing: true,
-            responsive: true,
-            serverSide: true,
-            language: {
-                processing: '<i class="ace-icon fa fa-spinner fa-spin bigger-500" style="font-size:60px;"></i>'
-            },
-            scroller: {
-                loadingIndicator: false
-            },
-            pagingType: "full_numbers",
+   
 
-            ajax: {
-                url: "{{route('submission.index')}}",
-                type: "get",
-            },
-            columns: [
-                {data: "DT_RowIndex", name: "DT_RowIndex", orderable: false,},
-                {data: 'author', name: 'author', orderable: true},
-                {data: 'form_id', name: 'form_id', orderable: true,},
-                {data: 'created_at', name: 'created_at', orderable: true},
-                {data: 'action', searchable: false, orderable: false}
-
-                //only those have manage_user permission will get access
-
-            ],
-        });
-    </script>
 @endsection

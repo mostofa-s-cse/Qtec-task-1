@@ -59,9 +59,13 @@ Route::group([
         Route::resource('users',UserController::class);
         Route::get('get-submission-data', [FormsController::class, 'submission']);
 
-        
-        Route::view('get-form-submissiondata/{id}', 'FormBuilder.submissiondata');
         Route::get('get-form-submissiondata', [FormsController::class, 'submission'])->name('submission.index');
+        Route::get('get-form/{id}', [FormsController::class, 'submissiondata'])->name('submission.submissiondata');
+
+
+        Route::view('read-submit-form-data/{id}', 'FormBuilder.readsubmitdata');
+        Route::get('get-submit-form-data', [FormsController::class, 'readformdata']);
+
         // End Form Builder===============================================================
 });
  Route::view('read-form/{name}', 'front-end.read');
