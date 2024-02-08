@@ -46,6 +46,12 @@
 
   
 <div class="container">
+        @if (Auth::check())
+            <h4 class="mb-5 mt-5 text-center">Welcome {{ Auth::user()->name }}</h4>
+        @else
+            <div></div>
+        @endif
+
   <h2 class="mt-5">All Organizations</h2>
     <div class="row mt-5">
   @foreach($organizations as $key => $item)
