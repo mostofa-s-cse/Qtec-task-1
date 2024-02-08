@@ -27,21 +27,18 @@
                             <table class="table table-hover table-bordered">
                                 <thead>
                                 <tr class="" style="text-align:center; ">
-                                    <th style="width: 7%">SL</th>
-                                    <th style="width: 8%">author</th>
-                                    <th style="width: 15%">form_id</th>
-                                    <th style="width: 8%">created_at</th>
+                                    <th style="width: 8%">User</th>
+                                    <th style="width: 15%">Form Name</th>
+                                    <th style="width: 8%">Date/Time</th>
                                     <th style="width: 10%">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @foreach ($data as $item)
                                 <tr>
-                                    <td>{{ $item->id }}</td>
-                                    <td>{{ $item->author }}</td>
-                                    <td>{{ $item->form_id }}</td>
-                                    <td>{{ $item->created_at }}</td>
-
+                                    <td>{{ $item->user_name }}</td>
+                                    <td>{{ $item->category_name }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($item->created_at)->format('Y-m-d h:i:s') }}</td>
                                     <td>
                                     <a href="{{ URL('read-submit-form-data', $item->id) }}" class="btn btn-primary">{{ __('Data View') }}</a>
                                     </td>

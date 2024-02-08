@@ -31,9 +31,10 @@ class HomeController extends Controller
 
     public function read(Request $request)
         {
-            $name = $request->name;
+            $category_id = $request->category_id;
+            // dd($category_id);
             // Find the record by its name attribute
-            $item = FormBuilder::where('name', $name)->firstOrFail();
+            $item = FormBuilder::where('category_id', $category_id)->firstOrFail();
             return $item;
         }
 
@@ -44,6 +45,7 @@ class HomeController extends Controller
         $item = new Forms();
         $item->author = $request->author;
         $item->form_id = $request->form_id;
+        $item->category_id = $request->category_id;
         $request->request->remove('form_id');
         $item->form = $request->all();
         $item->save();

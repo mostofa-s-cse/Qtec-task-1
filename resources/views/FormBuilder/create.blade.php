@@ -27,11 +27,12 @@
                     <div class="card-body">
                         <div class="form-group">
                             <input type="hidden" value="{{Auth::user()->id}}" id="author" name="author">
+                            <input type="hidden" value="" id="category_name" name="category_name">
                                     <label>Categories <span class="text-danger">*</span></label>
-                                    <select class="select2 form-select form-control" id="name" name="name">
+                                    <select class="select2 form-select form-control" id="category_id" name="category_id">
                                         <option value="">Select Categories</option>
                                         @foreach ($categories as $item)
-                                            <option value="{{$item->id}}">{{$item->name}}</option>
+                                            <option value="{{$item->id}}" >{{$item->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -56,6 +57,14 @@
             });
         });
 
+        $(document).ready(function(){
+        $('#category_id').change(function(){ 
+            var selectedCategory = $(this).val(); 
+            var selectedCategoryName = $(this).find('option:selected').text(); 
+            $('#category_name').val(selectedCategoryName); 
+        });
+    });
+
         function saveForm(form) {
             $.ajax({
                 type: 'post',
@@ -66,7 +75,8 @@
                 data: {
                     'form': form,
                     'author': $("#author").val(),
-                    'name': $("#name").val(),
+                    'category_id': $("#category_id").val(),
+                    'category_name':$("#category_name").val(),
                     "_token": "{{ csrf_token() }}",
                 },
                 success: function(data) {

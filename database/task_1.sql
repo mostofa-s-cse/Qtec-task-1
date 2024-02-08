@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Feb 06, 2024 at 10:42 AM
+-- Generation Time: Feb 08, 2024 at 10:02 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -29,10 +29,10 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `categories` (
   `id` bigint UNSIGNED NOT NULL,
-  `organization_id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `author` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `organization_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `author` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -42,12 +42,10 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `organization_id`, `name`, `author`, `description`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Ca Admin 1', '1', 'ca details-1', '2024-02-06 03:24:54', NULL),
-(2, 1, 'Ca Admin 11', '1', 'ca details-11', '2024-02-06 03:26:20', '2024-02-06 03:27:24'),
-(3, 1, 'Ca Admin 1', '2', 'details-1', '2024-02-06 03:31:19', NULL),
-(4, 1, 'Ca Admin 11', '2', 'details-11', '2024-02-06 03:31:52', NULL),
-(5, 1, 'Ca Admin 13', '2', 'ca details-13', '2024-02-06 03:32:20', NULL),
-(6, 1, 'Google', '1', 'details-1', '2024-02-06 04:15:28', NULL);
+(1, '2', 'Web Developer', '2', 'details-1', '2024-02-08 09:49:30', NULL),
+(2, '2', 'Web Desginer', '2', 'details-2', '2024-02-08 09:49:46', NULL),
+(3, '3', 'Sales Man', '3', 'details-1', '2024-02-08 09:53:04', NULL),
+(4, '3', 'Marketing', '3', 'details-2', '2024-02-08 09:53:22', '2024-02-08 09:54:23');
 
 -- --------------------------------------------------------
 
@@ -57,11 +55,11 @@ INSERT INTO `categories` (`id`, `organization_id`, `name`, `author`, `descriptio
 
 CREATE TABLE `failed_jobs` (
   `id` bigint UNSIGNED NOT NULL,
-  `uuid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `connection` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `exception` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -73,9 +71,10 @@ CREATE TABLE `failed_jobs` (
 
 CREATE TABLE `forms` (
   `id` bigint UNSIGNED NOT NULL,
+  `author` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `category_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `form_id` bigint UNSIGNED NOT NULL,
   `form` json NOT NULL,
-  `author` int NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -84,10 +83,15 @@ CREATE TABLE `forms` (
 -- Dumping data for table `forms`
 --
 
-INSERT INTO `forms` (`id`, `form_id`, `form`, `author`, `created_at`, `updated_at`) VALUES
-(1, 2, '{\"number-1707213327407-0\": \"0909\", \"number-1707213329458-0\": \"88888\"}', 0, '2024-02-06 03:57:28', '2024-02-06 03:57:28'),
-(2, 5, '{\"date-1707214563947-0\": \"2024-02-07\", \"text-1707214558433-0\": \"mostofa\", \"radio-group-1707214567362-0\": \"option-2\"}', 0, '2024-02-06 04:32:02', '2024-02-06 04:32:02'),
-(3, 5, '{\"author\": \"1\", \"date-1707214563947-0\": \"2024-02-03\", \"text-1707214558433-0\": \"test\", \"radio-group-1707214567362-0\": \"option-1\"}', 1, '2024-02-06 04:40:58', '2024-02-06 04:40:58');
+INSERT INTO `forms` (`id`, `author`, `category_id`, `form_id`, `form`, `created_at`, `updated_at`) VALUES
+(1, '4', '1', 1, '{\"author\": \"4\", \"category_id\": \"1\", \"text-1707385832418-0\": \"User 1\", \"number-1707385858310-0\": \"090909\"}', '2024-02-08 09:56:59', '2024-02-08 09:56:59'),
+(2, '4', '4', 4, '{\"author\": \"4\", \"category_id\": \"4\", \"text-1707386159918-0\": \"User-1\", \"number-1707386171678-0\": \"9090\"}', '2024-02-08 09:57:18', '2024-02-08 09:57:18'),
+(3, '4', '2', 2, '{\"author\": \"4\", \"category_id\": \"2\", \"text-1707385917869-0\": \"User 1\", \"number-1707385915319-0\": \"8888\"}', '2024-02-08 09:57:31', '2024-02-08 09:57:31'),
+(4, '4', '3', 3, '{\"author\": \"4\", \"category_id\": \"3\", \"text-1707386103358-0\": \"user 1\", \"number-1707386114807-0\": \"555\"}', '2024-02-08 09:58:30', '2024-02-08 09:58:30'),
+(5, '5', '1', 1, '{\"author\": \"5\", \"category_id\": \"1\", \"text-1707385832418-0\": \"User 2\", \"number-1707385858310-0\": \"222222\"}', '2024-02-08 09:59:58', '2024-02-08 09:59:58'),
+(6, '5', '2', 2, '{\"author\": \"5\", \"category_id\": \"2\", \"text-1707385917869-0\": \"User 2\", \"number-1707385915319-0\": \"2222333\"}', '2024-02-08 10:00:09', '2024-02-08 10:00:09'),
+(7, '5', '3', 3, '{\"author\": \"5\", \"category_id\": \"3\", \"text-1707386103358-0\": \"user 222\", \"number-1707386114807-0\": \"232332\"}', '2024-02-08 10:00:20', '2024-02-08 10:00:20'),
+(8, '5', '4', 4, '{\"author\": \"5\", \"category_id\": \"4\", \"text-1707386159918-0\": \"User-2\", \"number-1707386171678-0\": \"23232323\"}', '2024-02-08 10:00:30', '2024-02-08 10:00:30');
 
 -- --------------------------------------------------------
 
@@ -97,9 +101,10 @@ INSERT INTO `forms` (`id`, `form_id`, `form`, `author`, `created_at`, `updated_a
 
 CREATE TABLE `form_builders` (
   `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `category_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `category_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `content` json NOT NULL,
-  `author` int NOT NULL,
+  `author` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -108,10 +113,11 @@ CREATE TABLE `form_builders` (
 -- Dumping data for table `form_builders`
 --
 
-INSERT INTO `form_builders` (`id`, `name`, `content`, `author`, `created_at`, `updated_at`) VALUES
-(2, 'Ca Admin 1', '\"[{\\\"type\\\":\\\"button\\\",\\\"label\\\":\\\"Button\\\",\\\"subtype\\\":\\\"button\\\",\\\"className\\\":\\\"btn-default btn\\\",\\\"name\\\":\\\"button-1707213323908-0\\\",\\\"access\\\":false,\\\"style\\\":\\\"default\\\"},{\\\"type\\\":\\\"number\\\",\\\"required\\\":false,\\\"label\\\":\\\"Number\\\",\\\"className\\\":\\\"form-control\\\",\\\"name\\\":\\\"number-1707213327407-0\\\",\\\"access\\\":false,\\\"subtype\\\":\\\"number\\\"},{\\\"type\\\":\\\"number\\\",\\\"required\\\":false,\\\"label\\\":\\\"Number\\\",\\\"className\\\":\\\"form-control\\\",\\\"name\\\":\\\"number-1707213329458-0\\\",\\\"access\\\":false,\\\"subtype\\\":\\\"number\\\"}]\"', 2, '2024-02-06 03:55:31', '2024-02-06 03:55:31'),
-(4, 'Ca Admin 11', '\"[{\\\"type\\\":\\\"date\\\",\\\"required\\\":false,\\\"label\\\":\\\"Date Field\\\",\\\"className\\\":\\\"form-control\\\",\\\"name\\\":\\\"date-1707214160135-0\\\",\\\"access\\\":false,\\\"subtype\\\":\\\"date\\\"}]\"', 2, '2024-02-06 04:10:32', '2024-02-06 04:10:32'),
-(5, 'Google', '\"[{\\\"type\\\":\\\"text\\\",\\\"required\\\":false,\\\"label\\\":\\\"Text Field\\\",\\\"className\\\":\\\"form-control\\\",\\\"name\\\":\\\"text-1707214558433-0\\\",\\\"access\\\":false,\\\"subtype\\\":\\\"text\\\"},{\\\"type\\\":\\\"header\\\",\\\"subtype\\\":\\\"h1\\\",\\\"label\\\":\\\"Header\\\",\\\"access\\\":false},{\\\"type\\\":\\\"date\\\",\\\"required\\\":false,\\\"label\\\":\\\"Date Field\\\",\\\"className\\\":\\\"form-control\\\",\\\"name\\\":\\\"date-1707214563947-0\\\",\\\"access\\\":false,\\\"subtype\\\":\\\"date\\\"},{\\\"type\\\":\\\"header\\\",\\\"subtype\\\":\\\"h1\\\",\\\"label\\\":\\\"Header\\\",\\\"access\\\":false},{\\\"type\\\":\\\"radio-group\\\",\\\"required\\\":false,\\\"label\\\":\\\"Radio Group\\\",\\\"inline\\\":false,\\\"name\\\":\\\"radio-group-1707214567362-0\\\",\\\"access\\\":false,\\\"other\\\":false,\\\"values\\\":[{\\\"label\\\":\\\"Option 1\\\",\\\"value\\\":\\\"option-1\\\",\\\"selected\\\":false},{\\\"label\\\":\\\"Option 2\\\",\\\"value\\\":\\\"option-2\\\",\\\"selected\\\":false},{\\\"label\\\":\\\"Option 3\\\",\\\"value\\\":\\\"option-3\\\",\\\"selected\\\":false}]}]\"', 1, '2024-02-06 04:16:10', '2024-02-06 04:16:10');
+INSERT INTO `form_builders` (`id`, `category_id`, `category_name`, `content`, `author`, `created_at`, `updated_at`) VALUES
+(1, '1', 'Web Developer', '\"[{\\\"type\\\":\\\"header\\\",\\\"subtype\\\":\\\"h2\\\",\\\"label\\\":\\\"Web Developer Form\\\",\\\"access\\\":false},{\\\"type\\\":\\\"text\\\",\\\"required\\\":false,\\\"label\\\":\\\"Your Name\\\",\\\"className\\\":\\\"form-control\\\",\\\"name\\\":\\\"text-1707385832418-0\\\",\\\"access\\\":false,\\\"subtype\\\":\\\"text\\\"},{\\\"type\\\":\\\"number\\\",\\\"required\\\":false,\\\"label\\\":\\\"Number\\\",\\\"className\\\":\\\"form-control\\\",\\\"name\\\":\\\"number-1707385858310-0\\\",\\\"access\\\":false,\\\"subtype\\\":\\\"number\\\"}]\"', '2', '2024-02-08 09:51:13', '2024-02-08 09:51:13'),
+(2, '2', 'Web Desginer', '\"[{\\\"type\\\":\\\"header\\\",\\\"subtype\\\":\\\"h2\\\",\\\"label\\\":\\\"Web Designer Form\\\",\\\"access\\\":false},{\\\"type\\\":\\\"text\\\",\\\"required\\\":false,\\\"label\\\":\\\"Name\\\",\\\"className\\\":\\\"form-control\\\",\\\"name\\\":\\\"text-1707385917869-0\\\",\\\"access\\\":false,\\\"subtype\\\":\\\"text\\\"},{\\\"type\\\":\\\"number\\\",\\\"required\\\":false,\\\"label\\\":\\\"Phone Number\\\",\\\"className\\\":\\\"form-control\\\",\\\"name\\\":\\\"number-1707385915319-0\\\",\\\"access\\\":false,\\\"subtype\\\":\\\"number\\\"}]\"', '2', '2024-02-08 09:52:25', '2024-02-08 09:52:25'),
+(3, '3', 'Sales Man', '\"[{\\\"type\\\":\\\"header\\\",\\\"subtype\\\":\\\"h2\\\",\\\"label\\\":\\\"Squre Sales Man Form\\\",\\\"access\\\":false},{\\\"type\\\":\\\"text\\\",\\\"required\\\":false,\\\"label\\\":\\\"Name\\\",\\\"className\\\":\\\"form-control\\\",\\\"name\\\":\\\"text-1707386103358-0\\\",\\\"access\\\":false,\\\"subtype\\\":\\\"text\\\"},{\\\"type\\\":\\\"number\\\",\\\"required\\\":false,\\\"label\\\":\\\"Number\\\",\\\"className\\\":\\\"form-control\\\",\\\"name\\\":\\\"number-1707386114807-0\\\",\\\"access\\\":false,\\\"subtype\\\":\\\"number\\\"}]\"', '3', '2024-02-08 09:55:18', '2024-02-08 09:55:18'),
+(4, '4', 'Marketing', '\"[{\\\"type\\\":\\\"header\\\",\\\"subtype\\\":\\\"h2\\\",\\\"label\\\":\\\"Squre Marketing Form\\\",\\\"access\\\":false},{\\\"type\\\":\\\"text\\\",\\\"required\\\":false,\\\"label\\\":\\\"Name\\\",\\\"className\\\":\\\"form-control\\\",\\\"name\\\":\\\"text-1707386159918-0\\\",\\\"access\\\":false,\\\"subtype\\\":\\\"text\\\"},{\\\"type\\\":\\\"number\\\",\\\"required\\\":false,\\\"label\\\":\\\"Number\\\",\\\"className\\\":\\\"form-control\\\",\\\"name\\\":\\\"number-1707386171678-0\\\",\\\"access\\\":false,\\\"subtype\\\":\\\"number\\\"}]\"', '3', '2024-02-08 09:56:13', '2024-02-08 09:56:13');
 
 -- --------------------------------------------------------
 
@@ -121,7 +127,7 @@ INSERT INTO `form_builders` (`id`, `name`, `content`, `author`, `created_at`, `u
 
 CREATE TABLE `migrations` (
   `id` int UNSIGNED NOT NULL,
-  `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -130,19 +136,16 @@ CREATE TABLE `migrations` (
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(14, '2014_10_12_000000_create_users_table', 1),
-(15, '2014_10_12_100000_create_password_reset_tokens_table', 1),
-(16, '2014_10_12_100000_create_password_resets_table', 1),
-(17, '2019_08_19_000000_create_failed_jobs_table', 1),
-(18, '2019_12_14_000001_create_personal_access_tokens_table', 1),
-(19, '2023_10_29_223039_create_form_builders_table', 1),
-(20, '2023_10_29_223047_create_form_builder_transactions_table', 1),
-(21, '2024_02_04_053006_create_organizations_table', 1),
-(22, '2024_02_04_053033_create_categories_table', 1),
-(23, '2024_02_04_053109_create_formss_table', 1),
-(24, '2024_02_04_053154_create_form_fields_table', 1),
-(25, '2024_02_04_053219_create_form_submissions_table', 1),
-(26, '2024_02_05_164928_create_permission_tables', 1);
+(31, '2014_10_12_000000_create_users_table', 1),
+(32, '2014_10_12_100000_create_password_reset_tokens_table', 1),
+(33, '2014_10_12_100000_create_password_resets_table', 1),
+(34, '2019_08_19_000000_create_failed_jobs_table', 1),
+(35, '2019_12_14_000001_create_personal_access_tokens_table', 1),
+(36, '2023_10_29_223039_create_form_builders_table', 1),
+(37, '2023_10_29_223047_create_form_builder_transactions_table', 1),
+(38, '2024_02_04_053006_create_organizations_table', 1),
+(39, '2024_02_04_053033_create_categories_table', 1),
+(40, '2024_02_05_164928_create_permission_tables', 1);
 
 -- --------------------------------------------------------
 
@@ -152,7 +155,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 
 CREATE TABLE `model_has_permissions` (
   `permission_id` bigint UNSIGNED NOT NULL,
-  `model_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `model_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `model_id` bigint UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -164,7 +167,7 @@ CREATE TABLE `model_has_permissions` (
 
 CREATE TABLE `model_has_roles` (
   `role_id` bigint UNSIGNED NOT NULL,
-  `model_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `model_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `model_id` bigint UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -183,18 +186,11 @@ INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 
 CREATE TABLE `organizations` (
   `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `organizations`
---
-
-INSERT INTO `organizations` (`id`, `name`, `description`, `created_at`, `updated_at`) VALUES
-(1, 'Admin 1', 'details-1', '2024-02-06 03:22:04', NULL);
 
 -- --------------------------------------------------------
 
@@ -203,8 +199,8 @@ INSERT INTO `organizations` (`id`, `name`, `description`, `created_at`, `updated
 --
 
 CREATE TABLE `password_resets` (
-  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -215,8 +211,8 @@ CREATE TABLE `password_resets` (
 --
 
 CREATE TABLE `password_reset_tokens` (
-  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -228,8 +224,8 @@ CREATE TABLE `password_reset_tokens` (
 
 CREATE TABLE `permissions` (
   `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `guard_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `guard_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -252,11 +248,11 @@ INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at
 
 CREATE TABLE `personal_access_tokens` (
   `id` bigint UNSIGNED NOT NULL,
-  `tokenable_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `tokenable_id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `abilities` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `abilities` text COLLATE utf8mb4_unicode_ci,
   `last_used_at` timestamp NULL DEFAULT NULL,
   `expires_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -271,8 +267,8 @@ CREATE TABLE `personal_access_tokens` (
 
 CREATE TABLE `roles` (
   `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `guard_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `guard_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -282,9 +278,9 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
-(1, 'super admin', 'web', NULL, NULL),
-(2, 'admin', 'web', NULL, NULL),
-(3, 'user', 'web', NULL, NULL);
+(1, 'User', 'web', NULL, NULL),
+(2, 'Admin', 'web', NULL, NULL),
+(3, 'Super Admin', 'web', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -318,12 +314,13 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 
 CREATE TABLE `users` (
   `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `remember_token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `role_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `types` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -332,9 +329,12 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `image`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Admin 1', NULL, 'admin1@gmail.com', NULL, '$2y$10$c/7z6QbHy/vVgFmy7s7aoeEhsKL5WqFLv6qh2FCWCphm8bbyfcmRK', NULL, '2024-02-06 03:02:09', '2024-02-06 03:02:09'),
-(2, 'Admin 2', NULL, 'admin2@gmail.com', NULL, '$2y$10$c/7z6QbHy/vVgFmy7s7aoeEhsKL5WqFLv6qh2FCWCphm8bbyfcmRK', NULL, '2024-02-06 03:04:31', '2024-02-06 03:04:31');
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `role_id`, `types`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Super Admin', 'superadmin@gmail.com', NULL, '$2y$10$rfII2TvfI85EU.14et9/seCueyUcg7kvJbhW8lNX6Qric4CBlTFLa', '3', 'Non Organizations', NULL, '2024-02-08 09:42:56', '2024-02-08 09:42:56'),
+(2, 'BDTask', 'bdtask@gmail.com', NULL, '$2y$10$ckbYNwe/NBFJJZabH1LnZu88E1iUw22CYGJ4UofYzFk8B316g9f06', '2', 'Organizations', NULL, '2024-02-08 09:44:35', NULL),
+(3, 'Squre', 'squre@gmail.com', NULL, '$2y$10$puBqanxxBVfNr/.BR1yv8OUUS9TWkhFwMioOhwHiCfjbuEiCy5bVy', '2', 'Organizations', NULL, '2024-02-08 09:45:05', NULL),
+(4, 'User 1', 'user@gmail.com', NULL, '$2y$10$xUG6dDw2jYtjE4Sc4RIzuu3lJzi5Pd76NdwU4bcBFl94bYUqm2t0i', '1', 'Non Organizations', NULL, '2024-02-08 09:45:58', NULL),
+(5, 'User 2', 'user1@gmail.com', NULL, '$2y$10$DQrjZa7EZjMJi6lnrns6ceKAYYsTVo7WbUYQ8NTaNzwWw423B3FGG', '1', 'Non Organizations', NULL, '2024-02-08 09:59:31', NULL);
 
 --
 -- Indexes for dumped tables
@@ -344,8 +344,7 @@ INSERT INTO `users` (`id`, `name`, `image`, `email`, `email_verified_at`, `passw
 -- Indexes for table `categories`
 --
 ALTER TABLE `categories`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `categories_organization_id_foreign` (`organization_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `failed_jobs`
@@ -450,7 +449,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -462,25 +461,25 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `forms`
 --
 ALTER TABLE `forms`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `form_builders`
 --
 ALTER TABLE `form_builders`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `organizations`
 --
 ALTER TABLE `organizations`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `permissions`
@@ -504,17 +503,11 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `categories`
---
-ALTER TABLE `categories`
-  ADD CONSTRAINT `categories_organization_id_foreign` FOREIGN KEY (`organization_id`) REFERENCES `organizations` (`id`);
 
 --
 -- Constraints for table `forms`

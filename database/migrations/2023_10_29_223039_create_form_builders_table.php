@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('form_builders', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('category_id');
+            $table->string('category_name');
             $table->JSON('content');
             $table->string('author');
             $table->timestamps();

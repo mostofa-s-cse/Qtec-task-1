@@ -13,9 +13,7 @@ class FormBuilderController extends Controller
     {
         $user = Auth::user();
         $forms = DB::table('form_builders')
-            ->where('form_builders.author', $user->id) // Specify the table name for the author column
-            ->join('categories', 'categories.id', '=', 'form_builders.id')
-            ->select('form_builders.*', 'categories.name as categories_name')
+            ->where('author', $user->id)
             ->get();      
             
             // dd($user->id);
@@ -26,8 +24,9 @@ class FormBuilderController extends Controller
     {
         // dd($request);
         $item = new FormBuilder();
-        $item->name = $request->name;
+        $item->category_id = $request->category_id;
         $item->author = $request->author;
+        $item->category_name = $request->category_name;
         $item->content = $request->form;
         $item->save();
 
@@ -42,7 +41,7 @@ class FormBuilderController extends Controller
     public function update(Request $request)
     {
         $item = FormBuilder::findOrFail($request->id);
-        $item->name = $request->name;
+        $item->category_id = $request->category_id;
         $item->content = $request->form;
         $item->update();
         return response()->json('updated successfully');
