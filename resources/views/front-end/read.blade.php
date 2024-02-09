@@ -1,3 +1,7 @@
+@php
+    $forms = \Illuminate\Support\Facades\DB::table('forms')->where('author', Auth::user()->id)->first();
+    $data = json_decode($forms->form);
+@endphp
 @extends('front-end.layouts.master')
 @section('title','Form Read')
 @section('content')
@@ -6,14 +10,28 @@
                 <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                    <form method="POST" action="{{ URL('save-form-user') }}">
-                            @csrf
-                            <input type="hidden" value="{{Auth::user()->id}}" id="author" name="author">
-                            <input type="hidden" value="{{ $name }}" id="category_id" name="category_id">
-                            <input type="number" id="form_id" name="form_id" hidden/>
-                            <div id="fb-reader"></div>
-                            <input type="submit" value="Save" class="btn btn-success" />
-                        </form>
+
+                      @if ($forms->author == Auth::user()->id && $forms->id == $name)
+                            <h4 class="mb-2">This form has already been submitted by you.</h4>
+                            <hr/>
+                        @foreach ($data as $key => $value)
+                            @if ($key != 'category_id' && $key != 'author')
+                                <h4><span>{{ ucwords($key) }}</span> : {{ $value }}</h4>
+                            @endif
+                        @endforeach
+
+                        @else
+                            <form method="POST" action="{{ URL('save-form-user') }}">
+                                @csrf
+                                <input type="hidden" value="{{ Auth::user()->id }}" id="author" name="author">
+                                <input type="hidden" value="{{ $name }}" id="category_id" name="category_id">
+                                <input type="number" id="form_id" name="form_id" hidden>
+                                
+                                <div id="fb-reader"></div>
+                                <input type="submit" value="Save" class="btn btn-success">
+                            </form>
+                        @endif
+
                     </div>
                 </div>
                 </div>

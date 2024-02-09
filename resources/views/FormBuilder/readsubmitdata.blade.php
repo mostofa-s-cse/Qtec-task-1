@@ -21,9 +21,12 @@
                 <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                             @foreach ($forms as $item)
-                                            <li>{{$item->name}}</li>
-                            @endforeach
+                           @foreach ($forms as $key => $value)
+                            @if ($key != 'category_id' && $key != 'author')
+                                <h4><span>{{ ucwords($key) }}</span> : {{ $value }}</h4>
+                                <hr/>
+                            @endif
+                        @endforeach
                     </div>
                 </div>
                 </div>

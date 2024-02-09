@@ -35,21 +35,16 @@ public function submissiondata($id)
 
    public function submitedsingledata($id)
 {
-     $data = DB::table('forms')
-            ->where('author', $id)
-            ->first(); 
-            $forms = json_decode($data->form);
-            dd( $data);
     try {
         $data = DB::table('forms')
             ->where('author', $id)
             ->first(); 
 
         if ($data) {
-            // $forms = json_decode($data->form);
+            $forms = json_decode($data->form);
 
             if ($data) {
-                return view('FormBuilder.readsubmitdata', compact('data'));
+                return view('FormBuilder.readsubmitdata', compact('forms'));
             } else {
                 throw new \Exception("Failed to decode form data from JSON.");
             }
