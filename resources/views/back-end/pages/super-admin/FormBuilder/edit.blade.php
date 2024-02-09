@@ -55,7 +55,7 @@
                 headers: {
                     'Authorization': 'Bearer ' + localStorage.getItem('token')
                 },
-                url: '{{ URL('get-form-builder-edit') }}',
+                url: '{{ URL('admin-get-form-builder-edit') }}',
                 data: {
                     'id': '{{ $id }}'
                 },
@@ -77,7 +77,7 @@
                 headers: {
                     'Authorization': 'Bearer ' + localStorage.getItem('token')
                 },
-                url: '{{ URL('update-form-builder') }}',
+                url: '{{ URL('admin-update-form-builder') }}',
                 data: {
                     'form': form,
                     'author': $("#author").val(),
@@ -88,7 +88,7 @@
                     "_token": "{{ csrf_token() }}",
                 },
                 success: function(data) {
-                    location.href = "/form-builder";
+                    location.href = "/admin-form-builder";
                 }
             });
         }

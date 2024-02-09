@@ -1,8 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
-
-use App\Http\Controllers\Controller;
+namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -19,9 +17,9 @@ class DashBoardController extends Controller
         // $roles = DB::table('roles')
         //     ->where('id', $user->id)
         //     ->first();
-        if ($user->role_id === '1') {
+        if ($user->types === '3') {
            return redirect()->route('frontend.index');
-        } elseif ($user->role_id === '2' || $user->role_id === '3') {
+        } elseif ($user->types === '1' || $user->types === '2') {
             return view('back-end.dashboard');
         } else {
             // Handle other roles or unauthorized access

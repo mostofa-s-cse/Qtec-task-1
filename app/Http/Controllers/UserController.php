@@ -14,12 +14,11 @@ class UserController extends Controller
     public function index(Request $request){
 
         try {
-            if ($request->ajax()) {
-                    $data = DB::table('users')
-                    ->join('roles', 'users.role_id', '=', 'roles.id')
-                    ->select('users.*', 'roles.name as roles_name')
+            $data = DB::table('users')
                     ->orderBy('users.id', 'DESC')
                     ->get();
+            if ($request->ajax()) {
+                  
 
                 return DataTables::of($data)
                     ->addIndexColumn()
@@ -29,12 +28,9 @@ class UserController extends Controller
                     ->addColumn('email', function ($data) {
                         return $data->email;
                     })
-                    ->addColumn('roles_name', function ($data) {
-                        return $data->roles_name;
-                    })
                     ->addColumn('types', function ($data) {
-                        return $data->types;
-                    })
+                            return $data->types == 1 ? 'Super Admin' : ($data->types == 2 ? 'Organization' : 'User');
+                        })
                     ->addColumn('action', function ($data) {
                         return '<div class="" role="group">
                                     <a id=""
@@ -50,10 +46,10 @@ class UserController extends Controller
                                     </a>
                                 </div>';
                     })
-                    ->rawColumns(['name','email','roles_name','types','action'])
+                    ->rawColumns(['name','email','types','action'])
                     ->make(true);
             }
-            return view('back-end.pages.admin.index');
+            return view('back-end.pages.user.index');
         } catch (\Exception $exception) {
             return redirect()->back()->with('error', $exception->getMessage());
         }
@@ -62,7 +58,7 @@ class UserController extends Controller
     public function create(){
         try {
             $roles = DB::table('roles')->get();
-            return view('back-end.pages.admin.create', compact('roles'));
+            return view('back-end.pages.user.create', compact('roles'));
         } catch (\Exception $exception) {
             return back()->with($exception->getMessage());
         }
@@ -74,7 +70,6 @@ class UserController extends Controller
             'email' => 'required',
             'name' => 'required',
             'password' => 'required|confirmed|min:6',
-            'role_id'=>'required',
             'types'=>'required',
 
         ], []);
@@ -84,7 +79,6 @@ class UserController extends Controller
                 'email' => $request->email,
                 'types'=>$request->types,
                 'password' => Hash::make($request->password),
-                'role_id'=>$request->role_id,
                 'created_at' => Carbon::now(),
             ]);
             return redirect()->route('users.index')
@@ -103,7 +97,7 @@ class UserController extends Controller
                 ->first();
 
                 $roles = DB::table('roles')->get();
-            return view('back-end.pages.admin.edit', compact('users','roles'));
+            return view('back-end.pages.user.edit', compact('users','roles'));
         } catch (\Exception $exception) {
             return back()->with($exception->getMessage());
         }
@@ -120,7 +114,6 @@ class UserController extends Controller
             'email' => 'required',
             'name' => 'required',
             'password' => 'required|confirmed|min:6',
-            'role_id'=>'required',
             'types'=>'required',
         ]);
     
@@ -138,7 +131,6 @@ class UserController extends Controller
                 'email' => $request->email,
                 'types'=>$request->types,
                 'password' => Hash::make($request->password),
-                'role_id'=>$request->role_id,
                 'updated_at' => Carbon::now(),
             ]);
 

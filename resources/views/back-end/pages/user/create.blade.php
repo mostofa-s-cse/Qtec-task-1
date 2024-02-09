@@ -1,14 +1,14 @@
 @extends('back-end.layouts.master')
-@section('title','Create organizations')
+@section('title','Create User')
 @section('content-header')
     <div class="row mb-2 px-2">
         <div class="col-sm-6">
-            <h1 class="m-0">Create Organizations</h1>
+            <h1 class="m-0">Create User</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">organizations</li>
+                <li class="breadcrumb-item active">create user</li>
             </ol>
         </div><!-- /.col -->
     </div>
@@ -21,7 +21,7 @@
                 <div class="col-md-12">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Create Organizations</h3>
+                            <h3 class="card-title">Create User</h3>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
@@ -30,38 +30,27 @@
                             @method('POST')
                             <div class="card-body">
                             <div class="form-group">
-                        <label for="">Name</label><span style="font-weight: bold; color: red"> *</span>
+                        <label for="">Name</label><span style="font-weight: bold; color: red" required> *</span>
                         <input type="text" name="name" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="">Email</label><span style="font-weight: bold; color: red"> *</span>
+                        <label for="">Email</label><span style="font-weight: bold; color: red" required> *</span>
                         <input type="text" name="email" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="">Password</label><span style="font-weight: bold; color: red"> *</span>
+                        <label for="">Password</label><span style="font-weight: bold; color: red" required> *</span>
                         <input type="text" name="password" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="">Confirm password</label><span style="font-weight: bold; color: red"> *</span>
+                        <label for="">Confirm password</label><span style="font-weight: bold; color: red" required> *</span>
                         <input type="text" name="password_confirmation" class="form-control">
                     </div>
-
                             <div class="form-group">
-                                <label for="">Select role</label><span style="font-weight: bold; color: red"> *</span>
-                                <select name="role_id" id="" class="form-control select2">
-                                    <option value="">select</option>
-                                    @foreach($roles as $role)
-                                        <option value="{{$role->id}}">{{$role->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="">Select Type</label><span style="font-weight: bold; color: red"> *</span>
+                                <label for="">Select Type</label><span style="font-weight: bold; color: red" required> *</span>
                                 <select name="types" id="" class="form-control select2">
                                     <option value="">select type</option>
-                                        <option value="Organizations">Organizations</option>
-                                        <option value="Non Organizations">Non Organizations</option>
+                                        <option value="2">Organizations</option>
+                                        <option value="3">User</option>
                                 </select>
                             </div>
                             </div>
@@ -81,7 +70,7 @@
 @section('js')
     <script>
         $(document).ready(function () {
-            $("#side-organizations").addClass('active');
+            $("#side-user").addClass('active');
         });
     </script>
 @endsection

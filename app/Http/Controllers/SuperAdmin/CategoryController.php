@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\SuperAdmin;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 
 
-class CategoriesController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,7 +22,6 @@ class CategoriesController extends Controller
             $user = Auth::user();
             if ($request->ajax()) {
                 $data = DB::table('categories')
-                    ->where('author', $user->id)
                     ->join('users', 'categories.organization_id', '=', 'users.id')
                     ->select('categories.*', 'users.name as organization_name')
                     ->orderBy('categories.id', 'DESC')
@@ -43,13 +42,13 @@ class CategoriesController extends Controller
                     ->addColumn('action', function ($data) {
                         return '<div class="" role="group">
                                     <a id=""
-                                        href="' . route('categories.edit', $data->id) . '" class="btn btn-sm btn-success" style="cursor:pointer"
+                                        href="' . route('category.edit', $data->id) . '" class="btn btn-sm btn-success" style="cursor:pointer"
                                         title="Edit">
                                         <i class="fa fa-edit"></i>
                                     </a>
 
                                     <a class="btn btn-sm btn-danger" style="cursor:pointer"
-                                       href="' . route('categories.destroy', [$data->id]) . '"
+                                       href="' . route('category.destroy', [$data->id]) . '"
                                        onclick="showDeleteConfirm(' . $data->id . ')" title="Delete">
                                         <i class="fa fa-trash"></i>
                                     </a>
@@ -58,7 +57,7 @@ class CategoriesController extends Controller
                     ->rawColumns(['organization_name', 'name','description','action'])
                     ->make(true);
             }
-            return view('back-end.pages.categories.index');
+            return view('back-end.pages.super-admin.categories.index');
         } catch (\Exception $exception) {
             return redirect()->back()->with('error', $exception->getMessage());
         }
@@ -69,9 +68,11 @@ class CategoriesController extends Controller
     public function create()
     {
         try {
-            // $organizations = DB::table('organizations')->get();
-//            dd($organizations);
-            return view('back-end.pages.categories.create');
+            $organizations = DB::table('users')
+            ->where('types', 2)
+            ->get();
+        //    dd($organizations);
+            return view('back-end.pages.super-admin.categories.create',compact('organizations'));
         } catch (\Exception $exception) {
             return back()->with($exception->getMessage());
         }
@@ -110,7 +111,7 @@ class CategoriesController extends Controller
                     'created_at' => now(),
                 ]);
                 // Redirect back with success message if the insertion is successful
-            return redirect()->route('categories.index')
+            return redirect()->route('category.index')
                 ->with('success', 'Added Successfully');
         } catch (\Exception $exception) {
             return redirect()->back()->with('error', $exception->getMessage());
@@ -126,8 +127,10 @@ class CategoriesController extends Controller
             $categories = DB::table('categories')
                 ->where('id', $id)
                 ->first();
-            $organizations = DB::table('organizations')->get();
-            return view('back-end.pages.categories.edit', compact('categories','organizations'));
+            $organizations = DB::table('users')
+            ->where('types', 2)
+            ->get();
+            return view('back-end.pages.super-admin.categories.edit', compact('categories','organizations'));
         } catch (\Exception $exception) {
             return back()->with($exception->getMessage());
         }
@@ -173,7 +176,7 @@ class CategoriesController extends Controller
                 'updated_at' => Carbon::now(),
             ]);
 
-            return redirect()->route('categories.index')
+            return redirect()->route('category.index')
                 ->with('success', 'Updated Successfully');
         } catch (\Exception $exception) {
             return redirect()->back()->with('error', $exception->getMessage());
@@ -191,7 +194,7 @@ class CategoriesController extends Controller
                 ->where('id', $id)
                 ->delete();
 
-            return redirect()->route('categories.index')
+            return redirect()->route('category.index')
                 ->with('success', 'Deleted Successfully');
 
         } catch (\Exception $exception) {

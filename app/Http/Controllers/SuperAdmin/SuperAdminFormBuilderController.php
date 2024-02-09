@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\SuperAdmin;
+use App\Http\Controllers\Controller;
 
 use App\Models\FormBuilder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-class FormBuilderController extends Controller
+class SuperAdminFormBuilderController extends Controller
 {
     //
     public function index()
@@ -18,13 +19,12 @@ class FormBuilderController extends Controller
             
         $allforms = DB::table('form_builders')
             ->join('users', 'form_builders.author', '=', 'users.id')
-            ->join('categories', 'form_builders.author', '=', 'categories.organization_id')
             ->select('form_builders.*', 'users.name as organization_name')
             ->orderBy('form_builders.id', 'DESC')
             ->get();
             
             // dd($user->id);
-        return view('FormBuilder.index', compact('forms','allforms'));
+        return view('back-end.pages.super-admin.FormBuilder.index', compact('forms','allforms'));
     }
 
     public function create(Request $request)
@@ -32,7 +32,7 @@ class FormBuilderController extends Controller
         // dd($request);
         $item = new FormBuilder();
         $item->category_id = $request->category_id;
-        $item->author = $request->author;
+        $item->author = $request->organization_id;
         $item->category_name = $request->category_name;
         $item->form_name = $request->form_name;
         $item->content = $request->form;
@@ -48,6 +48,7 @@ class FormBuilderController extends Controller
 
     public function update(Request $request)
     {
+        // dd($request);
         $item = FormBuilder::findOrFail($request->id);
         $item->category_id = $request->category_id;
         $item->author = $request->author;
@@ -63,6 +64,6 @@ class FormBuilderController extends Controller
         $form = FormBuilder::findOrFail($id);
         $form->delete();
 
-        return redirect('form-builder')->with('success', 'Form deleted successfully');
+        return redirect('super-admin-form-builder')->with('success', 'Form deleted successfully');
     }
 }

@@ -26,9 +26,9 @@
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
                     
-                     @if ($authUser->role_id === '3')
+                     @if ($authUser->types === '1')
                             <li class="nav-item">
-                                <a href="{{ route('users.index') }}" class="nav-link" id="side-organizations">
+                                <a href="{{ route('organizations.index') }}" class="nav-link" id="side-organizations">
                                     <i class="nav-icon fas fa-edit"></i>
                                     <p>
                                         Organizations
@@ -38,6 +38,20 @@
                             </li>
                         @endif
 
+                        @if ($authUser->types === '1')
+                            <li class="nav-item">
+                                <a href="{{ route('category.index') }}" class="nav-link" id="side-categories">
+                                    <i class="nav-icon fas fa-edit"></i>
+                                    <p>
+                                        Categories
+                                        {{-- <i class="fas fa-angle-left right"></i> --}}
+                                    </p>
+                                </a>
+                            </li>
+                        @endif
+
+                        
+            @if ($authUser->types === '2')
                 <li class="nav-item">
                     <a href="{{route("categories.index")}}" class="nav-link" id="side-categories">
                         <i class="nav-icon fas fa-edit"></i>
@@ -47,10 +61,8 @@
                         </p>
                     </a>
                 </li>
-
-
                 <li class="nav-item">
-                    <a href="{{ URL('form-builder') }}" class="nav-link" id="side-categories">
+                    <a href="{{ URL('form-builder') }}" class="nav-link" id="side-form-builder">
                         <i class="nav-icon fas fa-edit"></i>
                         <p>
                             Form Builder
@@ -58,6 +70,30 @@
                         </p>
                     </a>
                 </li>
+            @endif
+            @if ($authUser->types === '1')
+                <li class="nav-item">
+                    <a href="{{ URL('admin-form-builder') }}" class="nav-link" id="side-form-builder">
+                        <i class="nav-icon fas fa-edit"></i>
+                        <p>
+                            Form Builder
+                            {{-- <i class="fas fa-angle-left right"></i> --}}
+                        </p>
+                    </a>
+                </li>
+                 @endif
+                   
+                @if ($authUser->types === '1')
+                            <li class="nav-item">
+                                <a href="{{ route('users.index') }}" class="nav-link" id="side-user">
+                                    <i class="nav-icon fas fa-edit"></i>
+                                    <p>
+                                        All User
+                                        {{-- <i class="fas fa-angle-left right"></i> --}}
+                                    </p>
+                                </a>
+                            </li>
+                        @endif
                     </ul>
                 </li>
 

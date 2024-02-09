@@ -25,7 +25,7 @@
                 <div class="col-md-12">
                 <div class="card">
         <div class="card-body">
-            <a href="{{ URL('formbuilder') }}" class="btn btn-success">{{__('Create')}}</a>
+            <a href="{{ URL('admin-formbuilder') }}" class="btn btn-success">{{__('Create')}}</a>
             <table class="table">
                 <thead>
                     <th>{{__('Form Name')}}</th>
@@ -43,7 +43,7 @@
                             <td>{{ $form->category_name }}</td>
                             <td>{{ $form->organization_name }}</td>
                             <td>
-                                <a href="{{ URL('edit-form-builder', $form->id) }}" class="btn btn-primary">{{__('Edit')}}</a>
+                                <a href="{{ URL('admin-edit-form-builder', $form->id) }}" class="btn btn-primary">{{__('Edit')}}</a>
                                 <a href="{{ URL('read-form-builder', $form->id) }}" class="btn btn-primary">{{__('Show')}}</a>
                                 <a href="{{ URL('get-form', $form->id) }}" class="btn btn-primary">{{ __('Submitted Data View') }}</a>
                                 <form method="POST" action="{{ URL('form-delete', $form->id) }}" style="display: inline;">

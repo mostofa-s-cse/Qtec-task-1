@@ -13,7 +13,7 @@ class HomeController extends Controller
     public function frontendHome()
     {
         $organizations = DB::table('users')
-        ->where('types', 'Organizations')
+        ->where('types', '2')
         ->get();
         return view('front-end.index',compact('organizations'));
     }

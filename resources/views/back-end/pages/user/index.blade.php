@@ -1,14 +1,14 @@
 @extends('back-end.layouts.master')
-@section('title','All Organizations')
+@section('title','All Users')
 @section('content-header')
     <div class="row mb-2 px-2">
         <div class="col-sm-6">
-            <h1 class="m-0">Organizations List</h1>
+            <h1 class="m-0">User List</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">All organizations</li>
+                <li class="breadcrumb-item active">all user</li>
             </ol>
         </div><!-- /.col -->
     </div>
@@ -18,12 +18,12 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <a href="{{route('organizations.create')}}" class="btn btn-primary mb-2" style="float:right;">Create Organizations</a>
+                    <a href="{{route('users.create')}}" class="btn btn-primary mb-2" style="float:right;">Create User</a>
                 </div>
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between">
-                            <h3 class="card-title">Organization List</h3>
+                            <h3 class="card-title">User List</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -33,6 +33,7 @@
                                     <th>SL</th>
                                     <th>Name</th>
                                     <th>Email</th>
+                                    <th>Types</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -54,7 +55,7 @@
 @section('js')
     <script>
         $(document).ready(function () {
-            $("#side-organizations").addClass('active');
+            $("#side-user").addClass('active');
         });
 
     </script>
@@ -74,7 +75,7 @@
             pagingType: "full_numbers",
 
             ajax: {
-                url: "{{route('organizations.index')}}",
+                url: "{{route('users.index')}}",
                 type: "get",
             },
 
@@ -82,6 +83,7 @@
                 {data: "DT_RowIndex", name: "DT_RowIndex", orderable: false,},
                 {data: 'name', name: 'name', orderable: true,},
                 {data: 'email', name: 'email', orderable: true,},
+                {data: 'types', name: 'types', orderable: true,},
                 {data: 'action', searchable: false, orderable: false}
                 //only those have manage_user permission will get access
             ],
@@ -104,7 +106,7 @@
         // Delete Button
         function deleteItem(id) {
 
-            var url = '{{ route("organizations.destroy",":id") }}';
+            var url = '{{ route("users.destroy",":id") }}';
             $.ajax({
                 type: "DELETE",
                 url: url.replace(':id', id),

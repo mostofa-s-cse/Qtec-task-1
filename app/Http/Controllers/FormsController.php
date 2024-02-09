@@ -21,40 +21,45 @@ class FormsController extends Controller
 public function submissiondata($id)
     {
         try {
-            // $data = DB::table('forms')
-            //     ->where('form_id', $id)
-            //     ->join('users', 'forms.author', '=', 'users.id')
-            //     ->join('form_builders', 'forms.category_id ', '=', 'form_builders.category_id')
-            //     ->select('forms.*', 'users.name as user_name','form_builders.category_name')
-            //     ->get();
-
             $data = DB::table('forms')
             ->where('forms.form_id', $id)
             ->join('users', 'forms.author', '=', 'users.id')
             ->join('form_builders', 'forms.category_id', '=', 'form_builders.category_id')
             ->select('forms.*', 'users.name as user_name', 'form_builders.category_name as category_name')
-            ->get();
-
-            // $data = DB::table('forms')
-            //     ->where('form_id', $id)
-            //     ->join('form_builders', 'form_builders.name', '=', 'forms.form_id')
-            //     ->join('categories', 'categories.id', '=', 'form_builders.name')
-            //     ->join('users', 'forms.author', '=', 'users.id')
-            //     ->select(
-            //         'forms.*',
-            //         'form_builders.name as form_builder_name',
-            //         'categories.name as category_name',
-            //         'users.name as user_name'
-            //     )
-            //     ->get();
-
-                // dd( $data);
-                
+            ->get();    
             return view('FormBuilder.submissiondata', compact('data'));
         } catch (\Exception $exception) {
             return back()->with($exception->getMessage());
         }
     }
+
+   public function submitedsingledata($id)
+{
+     $data = DB::table('forms')
+            ->where('author', $id)
+            ->first(); 
+            $forms = json_decode($data->form);
+            dd( $data);
+    try {
+        $data = DB::table('forms')
+            ->where('author', $id)
+            ->first(); 
+
+        if ($data) {
+            // $forms = json_decode($data->form);
+
+            if ($data) {
+                return view('FormBuilder.readsubmitdata', compact('data'));
+            } else {
+                throw new \Exception("Failed to decode form data from JSON.");
+            }
+        } else {
+            throw new \Exception("No form data found for the given author ID.");
+        }
+    } catch (\Exception $exception) {
+        return back()->withError($exception->getMessage());
+    }
+}
 
 
     public function readformdata(Request $request)

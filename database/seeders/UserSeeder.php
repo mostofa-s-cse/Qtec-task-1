@@ -18,8 +18,7 @@ class UserSeeder extends Seeder
             'name' => 'Super Admin',
             'email' => 'superadmin@gmail.com',
             'password' => Hash::make('123456'),
-            'role_id'=>3,
-            'types'=>"Non Organizations"
+            'types'=>"1"
         ]);
     }
 }

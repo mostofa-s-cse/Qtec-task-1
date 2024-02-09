@@ -20,8 +20,8 @@ class AdminMiddleware
    public function handle($request, Closure $next)
     {
         if (Auth::check()) {
-            $role = auth()->user()->role_id;
-            if ($role != "2" && $role != "3") {
+            $role = auth()->user()->types;
+            if ($role != "1" && $role != "2") {
                 // return response()->json([
                 //     'success'=>false,
                 //     'message'=>'Unauthorized',

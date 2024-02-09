@@ -39,6 +39,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
     <script src="{{ URL::asset('assets/form-builder/form-render.min.js') }}"></script>
     <script>
+         $(document).ready(function () {
+            $("#side-side-form-builder").addClass('active');
+        });
         $(function() {
             $.ajax({
                 type: 'get',

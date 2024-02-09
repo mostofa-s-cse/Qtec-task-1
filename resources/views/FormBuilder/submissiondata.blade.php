@@ -40,7 +40,7 @@
                                     <td>{{ $item->category_name }}</td>
                                     <td>{{ \Carbon\Carbon::parse($item->created_at)->format('Y-m-d h:i:s') }}</td>
                                     <td>
-                                    <a href="{{ URL('read-submit-form-data', $item->id) }}" class="btn btn-primary">{{ __('Data View') }}</a>
+                                    <a href="{{ URL('read-submit-form-data', $item->author) }}" class="btn btn-primary">{{ __('Data View') }}</a>
                                     </td>
                                 </tr>
                                 @endforeach

@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\SuperAdmin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Organizations;
 use Illuminate\Support\Carbon;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\DataTables;
 
 
@@ -18,7 +20,8 @@ class OrganizationsController extends Controller
     {
         try {
             if ($request->ajax()) {
-                $data = DB::table('organizations')
+                $data = DB::table('users')
+                    ->where('types', 2)
                     ->orderBy('id', 'DESC')
                     ->get();
 
@@ -27,8 +30,8 @@ class OrganizationsController extends Controller
                     ->addColumn('name', function ($data) {
                         return $data->name;
                     })
-                    ->addColumn('description', function ($data) {
-                        return $data->description;
+                    ->addColumn('email', function ($data) {
+                        return $data->email;
                     })
                     ->addColumn('action', function ($data) {
                         return '<div class="" role="group">
@@ -45,10 +48,10 @@ class OrganizationsController extends Controller
                                     </a>
                                 </div>';
                     })
-                    ->rawColumns(['name','description','action'])
+                    ->rawColumns(['name','email','action'])
                     ->make(true);
             }
-            return view('back-end.pages.organizations.index');
+            return view('back-end.pages.super-admin.organizations.index');
         } catch (\Exception $exception) {
             return redirect()->back()->with('error', $exception->getMessage());
         }
@@ -59,7 +62,7 @@ class OrganizationsController extends Controller
     public function create()
     {
         try {
-            return view('back-end.pages.organizations.create');
+            return view('back-end.pages.super-admin.organizations.create');
         } catch (\Exception $exception) {
             return back()->with($exception->getMessage());
         }
@@ -70,22 +73,18 @@ class OrganizationsController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-        ]);
-
         try {
-            $existingOrganization = DB::table('organizations')
-                ->where('name', $request->name)
-                ->first();
-
-            if ($existingOrganization) {
-                return redirect()->back()->with('error', 'Organization name already exists');
-            }
-
-            DB::table('organizations')->insert([
+        $request->validate([
+            'email' => 'required',
+            'name' => 'required',
+            'password' => 'required|confirmed|min:6',
+        ], []);
+        $types=2;
+            DB::table('users')->insert([
                 'name' => $request->name,
-                'description' => $request->description,
+                'email' => $request->email,
+                'types'=>$types,
+                'password' => Hash::make($request->password),
                 'created_at' => Carbon::now(),
             ]);
 
@@ -103,11 +102,11 @@ class OrganizationsController extends Controller
     public function edit($id)
     {
         try {
-            $organizations = DB::table('organizations')
+            $organizations = DB::table('users')
                 ->where('id', $id)
                 ->first();
 
-            return view('back-end.pages.organizations.edit', compact('organizations'));
+            return view('back-end.pages.super-admin.organizations.edit', compact('organizations'));
         } catch (\Exception $exception) {
             return back()->with($exception->getMessage());
         }
@@ -118,26 +117,27 @@ class OrganizationsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'name' => 'required',
-        ]);
-
         try {
-            // Retrieve the existing slider record by its ID
-            $organizations = DB::table('organizations')->where('id', $id)->first();
-
-            if (!$organizations) {
-                return redirect()->route('organizations.index')
-                    ->with('error', 'Organization not found');
+            $request->validate([
+            'email' => 'required',
+            'name' => 'required',
+            'password' => 'required|confirmed|min:6',
+            ]);
+            // Retrieve the existing user record by its ID
+            $user = User::find($id);
+            $types=2;
+            if (!$user) {
+                return redirect()->route('users.index')
+                    ->with('error', 'User not found');
             }
-
-            // Update the slider record
-            DB::table('organizations')->where('id', $id)->update([
-                'name'=>$request->name,
-                'description' => $request->description,
+            
+            DB::table('users')->where('id', $id)->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'types'=>$types,
+                'password' => Hash::make($request->password),
                 'updated_at' => Carbon::now(),
             ]);
-
             return redirect()->route('organizations.index')
                 ->with('success', 'Updated Successfully');
         } catch (\Exception $exception) {
@@ -152,7 +152,7 @@ class OrganizationsController extends Controller
     public function destroy($id)
     {
         try {
-            DB::table('organizations')
+            DB::table('users')
                 ->where('id', $id)
                 ->delete();
 
