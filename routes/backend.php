@@ -88,3 +88,4 @@ Route::group([
         // End Form Builder===============================================================
 });
  Route::view('read-form/{name}', 'front-end.read');
+ Route::view('submited-form', 'front-end.submitedform');

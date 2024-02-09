@@ -1,6 +1,10 @@
 @php
-    $forms = \Illuminate\Support\Facades\DB::table('forms')->where('author', Auth::user()->id)->first();
+    $forms = \Illuminate\Support\Facades\DB::table('forms')
+    ->where('author', Auth::user()->id)
+    ->where('category_id',$name)->first();
     $data = json_decode($forms->form);
+
+    // dd($forms);
 @endphp
 @extends('front-end.layouts.master')
 @section('title','Form Read')
@@ -11,7 +15,7 @@
                 <div class="card">
                     <div class="card-body">
 
-                      @if ($forms->author == Auth::user()->id && $forms->id == $name)
+                      @if ($forms->author == Auth::user()->id && $forms->category_id == $name)
                             <h4 class="mb-2">This form has already been submitted by you.</h4>
                             <hr/>
                         @foreach ($data as $key => $value)

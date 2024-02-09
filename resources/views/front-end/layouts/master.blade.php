@@ -42,6 +42,16 @@
                     @endauth
                     @endif
 </li>
+
+{{-- </li>
+        <li class="nav-item">@if (Route::has('login')) @auth
+                    <a class="nav-link" href="{{ route('logout') }}"
+                  >All Submited Form</a>
+                    @else
+                       <div></div>
+                    @endauth
+                    @endif
+</li> --}}
     </ul>
   </div>
 </nav>
