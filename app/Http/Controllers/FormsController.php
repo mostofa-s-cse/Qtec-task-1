@@ -17,8 +17,27 @@ class FormsController extends Controller
         return $item;
     }
 
+    public function readformdata(Request $request)
+    {
+        $item = Forms::findOrFail($request->id);
+        return $item;
+    }
+    
+    public function create(Request $request)
+    {
+        // dd($request);
+        $request->request->remove('_token');
+        $item = new Forms();
+        $item->author = $request->author;
+        $item->form_id = $request->form_id;
+        $item->category_id = $request->category_id;
+        $request->request->remove('form_id');
+        $item->form = $request->all();
+        $item->save();
+        return redirect('form-builder')->with('success', 'Form submit successfully');
+    }
 
-public function submissiondata($id)
+    public function submissiondata($id)
     {
         try {
             $data = DB::table('forms')
@@ -39,7 +58,6 @@ public function submissiondata($id)
         $data = DB::table('forms')
             ->where('author', $id)
             ->first(); 
-
         if ($data) {
             $forms = json_decode($data->form);
 
@@ -56,24 +74,18 @@ public function submissiondata($id)
     }
 }
 
+    public function userallsubmiteddata($id)
+    {
+        try {
+            $data = DB::table('forms')
+            ->where('forms.author', $id)
+            ->join('form_builders', 'forms.category_id', '=', 'form_builders.category_id')
+            ->select('forms.*','form_builders.category_name as category_name','form_builders.form_name as form_name')
+            ->get();    
+            return view('front-end.userallsubmiteddata', compact('data'));
+        } catch (\Exception $exception) {
+            return back()->with($exception->getMessage());
+        }
+    }
 
-    public function readformdata(Request $request)
-    {
-        $item = Forms::findOrFail($request->id);
-        return $item;
-    }
-    
-    public function create(Request $request)
-    {
-        // dd($request);
-        $request->request->remove('_token');
-        $item = new Forms();
-        $item->author = $request->author;
-        $item->form_id = $request->form_id;
-        $item->category_id = $request->category_id;
-        $request->request->remove('form_id');
-        $item->form = $request->all();
-        $item->save();
-        return redirect('form-builder')->with('success', 'Form submit successfully');
-    }
 }

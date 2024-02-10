@@ -1,10 +1,10 @@
 @php
+use Illuminate\Support\Facades\Auth;
     $forms = \Illuminate\Support\Facades\DB::table('forms')
     ->where('author', Auth::user()->id)
     ->where('category_id',$name)->first();
-    $data = json_decode($forms->form);
-
-    // dd($forms);
+    
+    // $data = json_decode($forms->form);
 @endphp
 @extends('front-end.layouts.master')
 @section('title','Form Read')
@@ -15,26 +15,29 @@
                 <div class="card">
                     <div class="card-body">
 
-                      @if ($forms->author == Auth::user()->id && $forms->category_id == $name)
-                            <h4 class="mb-2">This form has already been submitted by you.</h4>
-                            <hr/>
-                        @foreach ($data as $key => $value)
-                            @if ($key != 'category_id' && $key != 'author')
-                                <h4><span>{{ ucwords($key) }}</span> : {{ $value }}</h4>
+                        @if ($forms && $forms->author == Auth::user()->id && $forms->category_id == $name)
+                                <h4 class="mb-2">This form has already been submitted by you.</h4>
+                                <hr/>
+                                @php
+                                $data = json_decode($forms->form);
+                                @endphp
+                                @foreach ($data as $key => $value)
+                                    @if ($key != 'category_id' && $key != 'author')
+                                        <h4><span>{{ ucwords($key) }}</span> : {{ $value }}</h4>
+                                    @endif
+                                @endforeach
+                            @else
+                                <form method="POST" action="{{ URL('save-form-user') }}">
+                                    @csrf
+                                    <input type="hidden" value="{{ Auth::user()->id }}" id="author" name="author">
+                                    <input type="hidden" value="{{ $name }}" id="category_id" name="category_id">
+                                    <input type="number" id="form_id" name="form_id" hidden>
+                                    
+                                    <div id="fb-reader"></div>
+                                    <input type="submit" value="Save" class="btn btn-success">
+                                </form>
                             @endif
-                        @endforeach
 
-                        @else
-                            <form method="POST" action="{{ URL('save-form-user') }}">
-                                @csrf
-                                <input type="hidden" value="{{ Auth::user()->id }}" id="author" name="author">
-                                <input type="hidden" value="{{ $name }}" id="category_id" name="category_id">
-                                <input type="number" id="form_id" name="form_id" hidden>
-                                
-                                <div id="fb-reader"></div>
-                                <input type="submit" value="Save" class="btn btn-success">
-                            </form>
-                        @endif
 
                     </div>
                 </div>

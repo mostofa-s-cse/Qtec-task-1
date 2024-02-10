@@ -48,7 +48,7 @@
                 <!-- /.row -->
             </div>
         </div>
-            <!-- /.container-fluid -->
+        <!-- /.container-fluid -->
     </section>
     <!-- /.content -->
 @endsection

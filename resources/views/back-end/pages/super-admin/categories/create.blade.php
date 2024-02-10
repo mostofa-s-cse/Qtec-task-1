@@ -25,11 +25,10 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form action="{{route('categories.store')}}" method="post" enctype="multipart/form-data">
+                        <form action="{{route('category.store')}}" method="post" enctype="multipart/form-data">
                             @csrf
                             @method('POST')
                             <div class="card-body">
-                            <input type="hidden" value="{{Auth::user()->id}}" id="organization_id" name="organization_id">
                                 <div class="form-group">
                                     <label for="exampleInputFile">Category Name</label>
                                     <div class="input-group">
@@ -53,7 +52,6 @@
                                 </div>
                             </div>
                             <!-- /.card-body -->
-
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">Submit</button>
                                 <button type="submit" class="btn btn-default float-right">Cancel</button>

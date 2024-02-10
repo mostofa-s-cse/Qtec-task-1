@@ -107,7 +107,7 @@ class CategoryController extends Controller
                     'organization_id' => $request->organization_id,
                     'name' => $request->name,
                     'description' => $request->description,
-                    'author' => $user->id,
+                    'author' => $request->organization_id,
                     'created_at' => now(),
                 ]);
                 // Redirect back with success message if the insertion is successful
@@ -154,24 +154,12 @@ class CategoryController extends Controller
                 return redirect()->route('categories.index')
                     ->with('error', 'categories not found');
             }
-
-            $user = Auth::user();
-                // Check if the category name already exists for the authenticated user
-                $existingCategory = DB::table('categories')
-                    ->where('author', $user->id)
-                    ->where('name', $request->name)
-                    ->first();
-
-                if ($existingCategory) {
-                    // Category name already exists for this user
-                    return redirect()->back()->with('error', 'Category name already exists');
-                }
-
+            
             // Update the slider record
             DB::table('categories')->where('id', $id)->update([
                 'organization_id' => $request->organization_id,
                 'name' => $request->name,
-                'author' => $user->id,
+                'author' => $request->organization_id,
                 'description' => $request->description,
                 'updated_at' => Carbon::now(),
             ]);

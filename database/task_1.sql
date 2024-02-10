@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Feb 08, 2024 at 10:02 AM
+-- Generation Time: Feb 10, 2024 at 05:46 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -42,10 +42,9 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `organization_id`, `name`, `author`, `description`, `created_at`, `updated_at`) VALUES
-(1, '2', 'Web Developer', '2', 'details-1', '2024-02-08 09:49:30', NULL),
-(2, '2', 'Web Desginer', '2', 'details-2', '2024-02-08 09:49:46', NULL),
-(3, '3', 'Sales Man', '3', 'details-1', '2024-02-08 09:53:04', NULL),
-(4, '3', 'Marketing', '3', 'details-2', '2024-02-08 09:53:22', '2024-02-08 09:54:23');
+(1, '3', 'Web Developer', '3', 'test', '2024-02-10 17:18:06', NULL),
+(2, '2', 'Software eng', '2', 'test', '2024-02-10 17:18:39', NULL),
+(3, '3', 'SQL', '3', 'test', '2024-02-10 17:33:45', NULL);
 
 -- --------------------------------------------------------
 
@@ -84,14 +83,7 @@ CREATE TABLE `forms` (
 --
 
 INSERT INTO `forms` (`id`, `author`, `category_id`, `form_id`, `form`, `created_at`, `updated_at`) VALUES
-(1, '4', '1', 1, '{\"author\": \"4\", \"category_id\": \"1\", \"text-1707385832418-0\": \"User 1\", \"number-1707385858310-0\": \"090909\"}', '2024-02-08 09:56:59', '2024-02-08 09:56:59'),
-(2, '4', '4', 4, '{\"author\": \"4\", \"category_id\": \"4\", \"text-1707386159918-0\": \"User-1\", \"number-1707386171678-0\": \"9090\"}', '2024-02-08 09:57:18', '2024-02-08 09:57:18'),
-(3, '4', '2', 2, '{\"author\": \"4\", \"category_id\": \"2\", \"text-1707385917869-0\": \"User 1\", \"number-1707385915319-0\": \"8888\"}', '2024-02-08 09:57:31', '2024-02-08 09:57:31'),
-(4, '4', '3', 3, '{\"author\": \"4\", \"category_id\": \"3\", \"text-1707386103358-0\": \"user 1\", \"number-1707386114807-0\": \"555\"}', '2024-02-08 09:58:30', '2024-02-08 09:58:30'),
-(5, '5', '1', 1, '{\"author\": \"5\", \"category_id\": \"1\", \"text-1707385832418-0\": \"User 2\", \"number-1707385858310-0\": \"222222\"}', '2024-02-08 09:59:58', '2024-02-08 09:59:58'),
-(6, '5', '2', 2, '{\"author\": \"5\", \"category_id\": \"2\", \"text-1707385917869-0\": \"User 2\", \"number-1707385915319-0\": \"2222333\"}', '2024-02-08 10:00:09', '2024-02-08 10:00:09'),
-(7, '5', '3', 3, '{\"author\": \"5\", \"category_id\": \"3\", \"text-1707386103358-0\": \"user 222\", \"number-1707386114807-0\": \"232332\"}', '2024-02-08 10:00:20', '2024-02-08 10:00:20'),
-(8, '5', '4', 4, '{\"author\": \"5\", \"category_id\": \"4\", \"text-1707386159918-0\": \"User-2\", \"number-1707386171678-0\": \"23232323\"}', '2024-02-08 10:00:30', '2024-02-08 10:00:30');
+(1, '4', '2', 1, '{\"name\": \"DB_USER\", \"author\": \"4\", \"number\": \"2323\", \"address\": \"989898\", \"category_id\": \"2\"}', '2024-02-10 17:42:19', '2024-02-10 17:42:19');
 
 -- --------------------------------------------------------
 
@@ -103,6 +95,7 @@ CREATE TABLE `form_builders` (
   `id` bigint UNSIGNED NOT NULL,
   `category_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `category_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `form_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `content` json NOT NULL,
   `author` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -113,11 +106,10 @@ CREATE TABLE `form_builders` (
 -- Dumping data for table `form_builders`
 --
 
-INSERT INTO `form_builders` (`id`, `category_id`, `category_name`, `content`, `author`, `created_at`, `updated_at`) VALUES
-(1, '1', 'Web Developer', '\"[{\\\"type\\\":\\\"header\\\",\\\"subtype\\\":\\\"h2\\\",\\\"label\\\":\\\"Web Developer Form\\\",\\\"access\\\":false},{\\\"type\\\":\\\"text\\\",\\\"required\\\":false,\\\"label\\\":\\\"Your Name\\\",\\\"className\\\":\\\"form-control\\\",\\\"name\\\":\\\"text-1707385832418-0\\\",\\\"access\\\":false,\\\"subtype\\\":\\\"text\\\"},{\\\"type\\\":\\\"number\\\",\\\"required\\\":false,\\\"label\\\":\\\"Number\\\",\\\"className\\\":\\\"form-control\\\",\\\"name\\\":\\\"number-1707385858310-0\\\",\\\"access\\\":false,\\\"subtype\\\":\\\"number\\\"}]\"', '2', '2024-02-08 09:51:13', '2024-02-08 09:51:13'),
-(2, '2', 'Web Desginer', '\"[{\\\"type\\\":\\\"header\\\",\\\"subtype\\\":\\\"h2\\\",\\\"label\\\":\\\"Web Designer Form\\\",\\\"access\\\":false},{\\\"type\\\":\\\"text\\\",\\\"required\\\":false,\\\"label\\\":\\\"Name\\\",\\\"className\\\":\\\"form-control\\\",\\\"name\\\":\\\"text-1707385917869-0\\\",\\\"access\\\":false,\\\"subtype\\\":\\\"text\\\"},{\\\"type\\\":\\\"number\\\",\\\"required\\\":false,\\\"label\\\":\\\"Phone Number\\\",\\\"className\\\":\\\"form-control\\\",\\\"name\\\":\\\"number-1707385915319-0\\\",\\\"access\\\":false,\\\"subtype\\\":\\\"number\\\"}]\"', '2', '2024-02-08 09:52:25', '2024-02-08 09:52:25'),
-(3, '3', 'Sales Man', '\"[{\\\"type\\\":\\\"header\\\",\\\"subtype\\\":\\\"h2\\\",\\\"label\\\":\\\"Squre Sales Man Form\\\",\\\"access\\\":false},{\\\"type\\\":\\\"text\\\",\\\"required\\\":false,\\\"label\\\":\\\"Name\\\",\\\"className\\\":\\\"form-control\\\",\\\"name\\\":\\\"text-1707386103358-0\\\",\\\"access\\\":false,\\\"subtype\\\":\\\"text\\\"},{\\\"type\\\":\\\"number\\\",\\\"required\\\":false,\\\"label\\\":\\\"Number\\\",\\\"className\\\":\\\"form-control\\\",\\\"name\\\":\\\"number-1707386114807-0\\\",\\\"access\\\":false,\\\"subtype\\\":\\\"number\\\"}]\"', '3', '2024-02-08 09:55:18', '2024-02-08 09:55:18'),
-(4, '4', 'Marketing', '\"[{\\\"type\\\":\\\"header\\\",\\\"subtype\\\":\\\"h2\\\",\\\"label\\\":\\\"Squre Marketing Form\\\",\\\"access\\\":false},{\\\"type\\\":\\\"text\\\",\\\"required\\\":false,\\\"label\\\":\\\"Name\\\",\\\"className\\\":\\\"form-control\\\",\\\"name\\\":\\\"text-1707386159918-0\\\",\\\"access\\\":false,\\\"subtype\\\":\\\"text\\\"},{\\\"type\\\":\\\"number\\\",\\\"required\\\":false,\\\"label\\\":\\\"Number\\\",\\\"className\\\":\\\"form-control\\\",\\\"name\\\":\\\"number-1707386171678-0\\\",\\\"access\\\":false,\\\"subtype\\\":\\\"number\\\"}]\"', '3', '2024-02-08 09:56:13', '2024-02-08 09:56:13');
+INSERT INTO `form_builders` (`id`, `category_id`, `category_name`, `form_name`, `content`, `author`, `created_at`, `updated_at`) VALUES
+(1, '2', 'Software eng ( BD Jobs )', 'Software Eng', '\"[{\\\"type\\\":\\\"text\\\",\\\"required\\\":false,\\\"label\\\":\\\"Name\\\",\\\"placeholder\\\":\\\"Enter Your Name\\\",\\\"className\\\":\\\"form-control\\\",\\\"name\\\":\\\"name\\\",\\\"access\\\":false,\\\"subtype\\\":\\\"text\\\"},{\\\"type\\\":\\\"number\\\",\\\"required\\\":false,\\\"label\\\":\\\"Phone Number\\\",\\\"className\\\":\\\"form-control\\\",\\\"name\\\":\\\"number\\\",\\\"access\\\":false,\\\"subtype\\\":\\\"number\\\"},{\\\"type\\\":\\\"textarea\\\",\\\"required\\\":false,\\\"label\\\":\\\"Address\\\",\\\"className\\\":\\\"form-control\\\",\\\"name\\\":\\\"address\\\",\\\"access\\\":false,\\\"subtype\\\":\\\"textarea\\\"}]\"', '2', '2024-02-10 17:27:58', '2024-02-10 17:27:58'),
+(2, '1', 'Web Developer ( BDTask )', 'Web Dev', '\"[{\\\"type\\\":\\\"text\\\",\\\"required\\\":false,\\\"label\\\":\\\"Name\\\",\\\"placeholder\\\":\\\"Enter your name\\\",\\\"className\\\":\\\"form-control\\\",\\\"name\\\":\\\"name\\\",\\\"access\\\":false,\\\"subtype\\\":\\\"text\\\"},{\\\"type\\\":\\\"number\\\",\\\"required\\\":false,\\\"label\\\":\\\"Number\\\",\\\"className\\\":\\\"form-control\\\",\\\"name\\\":\\\"number\\\",\\\"access\\\":false,\\\"subtype\\\":\\\"number\\\"},{\\\"type\\\":\\\"radio-group\\\",\\\"required\\\":false,\\\"label\\\":\\\"Gender\\\",\\\"inline\\\":false,\\\"name\\\":\\\"radio-group-1707586322152-0\\\",\\\"access\\\":false,\\\"other\\\":false,\\\"values\\\":[{\\\"label\\\":\\\"Male\\\",\\\"value\\\":\\\"male\\\",\\\"selected\\\":false},{\\\"label\\\":\\\"Female\\\",\\\"value\\\":\\\"female\\\",\\\"selected\\\":false}]}]\"', '3', '2024-02-10 17:32:42', '2024-02-10 17:32:42'),
+(3, '3', 'SQL', 'SQL Job', '\"[{\\\"type\\\":\\\"text\\\",\\\"required\\\":false,\\\"label\\\":\\\"Name\\\",\\\"className\\\":\\\"form-control\\\",\\\"name\\\":\\\"name\\\",\\\"access\\\":false,\\\"subtype\\\":\\\"text\\\"},{\\\"type\\\":\\\"textarea\\\",\\\"required\\\":false,\\\"label\\\":\\\"Address\\\",\\\"className\\\":\\\"form-control\\\",\\\"name\\\":\\\"address\\\",\\\"access\\\":false,\\\"subtype\\\":\\\"textarea\\\"}]\"', '3', '2024-02-10 17:34:50', '2024-02-10 17:34:50');
 
 -- --------------------------------------------------------
 
@@ -127,7 +119,7 @@ INSERT INTO `form_builders` (`id`, `category_id`, `category_name`, `content`, `a
 
 CREATE TABLE `migrations` (
   `id` int UNSIGNED NOT NULL,
-  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -136,16 +128,16 @@ CREATE TABLE `migrations` (
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(31, '2014_10_12_000000_create_users_table', 1),
-(32, '2014_10_12_100000_create_password_reset_tokens_table', 1),
-(33, '2014_10_12_100000_create_password_resets_table', 1),
-(34, '2019_08_19_000000_create_failed_jobs_table', 1),
-(35, '2019_12_14_000001_create_personal_access_tokens_table', 1),
-(36, '2023_10_29_223039_create_form_builders_table', 1),
-(37, '2023_10_29_223047_create_form_builder_transactions_table', 1),
 (38, '2024_02_04_053006_create_organizations_table', 1),
-(39, '2024_02_04_053033_create_categories_table', 1),
-(40, '2024_02_05_164928_create_permission_tables', 1);
+(68, '2014_10_12_000000_create_users_table', 2),
+(69, '2014_10_12_100000_create_password_reset_tokens_table', 2),
+(70, '2014_10_12_100000_create_password_resets_table', 2),
+(71, '2019_08_19_000000_create_failed_jobs_table', 2),
+(72, '2019_12_14_000001_create_personal_access_tokens_table', 2),
+(73, '2023_10_29_223039_create_form_builders_table', 2),
+(74, '2023_10_29_223047_create_form_builder_transactions_table', 2),
+(75, '2024_02_04_053033_create_categories_table', 2),
+(76, '2024_02_05_164928_create_permission_tables', 2);
 
 -- --------------------------------------------------------
 
@@ -186,8 +178,8 @@ INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 
 CREATE TABLE `organizations` (
   `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -318,8 +310,7 @@ CREATE TABLE `users` (
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `role_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `types` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `types` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -329,12 +320,11 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `role_id`, `types`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Super Admin', 'superadmin@gmail.com', NULL, '$2y$10$rfII2TvfI85EU.14et9/seCueyUcg7kvJbhW8lNX6Qric4CBlTFLa', '3', 'Non Organizations', NULL, '2024-02-08 09:42:56', '2024-02-08 09:42:56'),
-(2, 'BDTask', 'bdtask@gmail.com', NULL, '$2y$10$ckbYNwe/NBFJJZabH1LnZu88E1iUw22CYGJ4UofYzFk8B316g9f06', '2', 'Organizations', NULL, '2024-02-08 09:44:35', NULL),
-(3, 'Squre', 'squre@gmail.com', NULL, '$2y$10$puBqanxxBVfNr/.BR1yv8OUUS9TWkhFwMioOhwHiCfjbuEiCy5bVy', '2', 'Organizations', NULL, '2024-02-08 09:45:05', NULL),
-(4, 'User 1', 'user@gmail.com', NULL, '$2y$10$xUG6dDw2jYtjE4Sc4RIzuu3lJzi5Pd76NdwU4bcBFl94bYUqm2t0i', '1', 'Non Organizations', NULL, '2024-02-08 09:45:58', NULL),
-(5, 'User 2', 'user1@gmail.com', NULL, '$2y$10$DQrjZa7EZjMJi6lnrns6ceKAYYsTVo7WbUYQ8NTaNzwWw423B3FGG', '1', 'Non Organizations', NULL, '2024-02-08 09:59:31', NULL);
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `types`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Super Admin', 'superadmin@gmail.com', NULL, '$2y$10$1FbYhNk92sDK4LlqyeV/beVqoQqwk/svpoxDEJx2DUyv4ZJdbH5We', '1', NULL, '2024-02-10 17:16:14', '2024-02-10 17:16:14'),
+(2, 'BD Jobs', 'bdjobs@gmail.com', NULL, '$2y$10$vMqowMrhi3lnODO2OLUZxeSR2Tdql.Ck3jnJG0G507xz1hCSmoGGu', '2', NULL, '2024-02-10 17:17:16', NULL),
+(3, 'BDTask', 'bdtask@gmail.com', NULL, '$2y$10$s.yhTFybsDQCDQpFBqB0DexLNldGHZUv0DwfTheorlJoT2YvWn6.q', '2', NULL, '2024-02-10 17:17:36', NULL),
+(4, 'User', 'user@gmail.com', NULL, '$2y$10$AIjMloMgjglW0tERTuYlyuQE3AH7P.IwYa/r9OG/sv4Y35FVYwODa', '3', NULL, '2024-02-10 17:30:25', NULL);
 
 --
 -- Indexes for dumped tables
@@ -449,7 +439,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -461,19 +451,19 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `forms`
 --
 ALTER TABLE `forms`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `form_builders`
 --
 ALTER TABLE `form_builders`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
 
 --
 -- AUTO_INCREMENT for table `organizations`
@@ -503,7 +493,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables

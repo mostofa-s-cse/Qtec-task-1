@@ -25,11 +25,10 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form action="{{route('categories.update',$categories->id)}}" method="post" enctype="multipart/form-data">
+                        <form action="{{route('category.update',$categories->id)}}" method="post" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="card-body">
-                            <input type="hidden" value="{{Auth::user()->id}}" id="organization_id" name="organization_id">
                                 <div class="form-group">
                                     <label for="exampleInputFile">Category Name</label>
                                     <div class="input-group">

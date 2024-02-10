@@ -5,7 +5,7 @@ use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\SuperAdmin\OrganizationsController;
 use App\Http\Controllers\DashBoardController;
 use App\Http\Controllers\PermissionController;
-use App\Http\Controllers\DropZoneController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\FormBuilderController;
 use App\Http\Controllers\FormsController;
 use App\Http\Controllers\RoleController;
@@ -87,5 +87,11 @@ Route::group([
 
         // End Form Builder===============================================================
 });
- Route::view('read-form/{name}', 'front-end.read');
- Route::view('submited-form', 'front-end.submitedform');
+Route::get('get-form', [HomeController::class, 'read']);
+Route::post('save-form-user', [HomeController::class, 'create']);
+
+Route::view('read-form/{name}', 'front-end.read');
+Route::view('submited-form', 'front-end.submitedform');
+
+Route::get('get-all-submited-form/{id}', [FormsController::class, 'userallsubmiteddata']);
+Route::view('red-submited-data/{id}', 'front-end.readsubmiteddata');

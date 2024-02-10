@@ -29,7 +29,7 @@
                             @csrf
                             @method('POST')
                             <div class="card-body">
-                            <input type="hidden" value="{{Auth::user()->id}}" id="organization_id" name="organization_id">
+                                <input type="hidden" value="{{Auth::user()->id}}" id="organization_id" name="organization_id">
                                 <div class="form-group">
                                     <label for="exampleInputFile">Category Name</label>
                                     <div class="input-group">

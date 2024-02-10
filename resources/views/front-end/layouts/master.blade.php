@@ -43,15 +43,14 @@
                     @endif
 </li>
 
-{{-- </li>
+</li>
         <li class="nav-item">@if (Route::has('login')) @auth
-                    <a class="nav-link" href="{{ route('logout') }}"
-                  >All Submited Form</a>
+                    <a class="nav-link" href="{{ url('get-all-submited-form', Auth::user()->id) }}">All Submited Form</a>
                     @else
                        <div></div>
                     @endauth
                     @endif
-</li> --}}
+</li>
     </ul>
   </div>
 </nav>

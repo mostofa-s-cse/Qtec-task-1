@@ -151,16 +151,6 @@ class CategoriesController extends Controller
             }
 
             $user = Auth::user();
-                // Check if the category name already exists for the authenticated user
-                $existingCategory = DB::table('categories')
-                    ->where('author', $user->id)
-                    ->where('name', $request->name)
-                    ->first();
-
-                if ($existingCategory) {
-                    // Category name already exists for this user
-                    return redirect()->back()->with('error', 'Category name already exists');
-                }
 
             // Update the slider record
             DB::table('categories')->where('id', $id)->update([
