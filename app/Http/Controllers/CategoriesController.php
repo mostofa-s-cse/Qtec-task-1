@@ -142,7 +142,7 @@ class CategoriesController extends Controller
         ]);
 
         try {
-            // Retrieve the existing slider record by its ID
+          
             $categories = DB::table('categories')->where('id', $id)->first();
 
             if (!$categories) {
@@ -152,7 +152,6 @@ class CategoriesController extends Controller
 
             $user = Auth::user();
 
-            // Update the slider record
             DB::table('categories')->where('id', $id)->update([
                 'organization_id' => $request->organization_id,
                 'name' => $request->name,

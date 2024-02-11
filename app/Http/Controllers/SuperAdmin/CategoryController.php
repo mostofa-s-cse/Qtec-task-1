@@ -91,18 +91,15 @@ class CategoryController extends Controller
 
         try {
             $user = Auth::user();
-                // Check if the category name already exists for the authenticated user
                 $existingCategory = DB::table('categories')
                     ->where('author', $user->id)
                     ->where('name', $request->name)
                     ->first();
 
                 if ($existingCategory) {
-                    // Category name already exists for this user
+                   
                     return redirect()->back()->with('error', 'Category name already exists');
                 }
-
-                // If the category name doesn't exist, insert the new category
                 DB::table('categories')->insert([
                     'organization_id' => $request->organization_id,
                     'name' => $request->name,
@@ -110,7 +107,7 @@ class CategoryController extends Controller
                     'author' => $request->organization_id,
                     'created_at' => now(),
                 ]);
-                // Redirect back with success message if the insertion is successful
+               
             return redirect()->route('category.index')
                 ->with('success', 'Added Successfully');
         } catch (\Exception $exception) {
@@ -147,7 +144,6 @@ class CategoryController extends Controller
         ]);
 
         try {
-            // Retrieve the existing slider record by its ID
             $categories = DB::table('categories')->where('id', $id)->first();
 
             if (!$categories) {
